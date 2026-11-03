@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "sexmod:item/wand/wand"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "sexmod:active": 1
+      },
+      "model": "sexmod:item/npc_editor_wand_active"
+    }
+  ]
+}
