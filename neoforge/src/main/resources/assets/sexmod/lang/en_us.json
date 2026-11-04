@@ -200,5 +200,15 @@
   "touch": "Touch",
   "uuh": "Uuh",
   "weoweo": "Weoweo",
-  "yep": "Yep"
+  "yep": "Yep",
+  "item.sexmod.winchester": "Winchester",
+  "item.sexmod.jenny_spawn_egg": "Jenny Spawn Egg",
+  "item.sexmod.ellie_spawn_egg": "Ellie Spawn Egg",
+  "item.sexmod.slime_spawn_egg": "Slime girl Spawn Egg",
+  "item.sexmod.bia_spawn_egg": "Bia Spawn Egg",
+  "item.sexmod.bee_spawn_egg": "Bee Spawn Egg",
+  "item.sexmod.luna_spawn_egg": "Luna Spawn Egg",
+  "item.sexmod.goblin_spawn_egg": "Goblin Spawn Egg",
+  "item.sexmod.galath_spawn_egg": "Galath Spawn Egg",
+  "item.sexmod.manglelie_spawn_egg": "Manglelie Spawn Egg"
 }

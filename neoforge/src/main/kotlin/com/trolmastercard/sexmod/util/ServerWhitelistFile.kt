@@ -26,6 +26,7 @@ object ServerWhitelistFile {
         val file = File(ServerWhitelistManager.WHITELIST_FILE)
 
         try {
+            file.parentFile?.mkdirs()
             file.createNewFile()
         } catch (exception: Exception) {
             Main.LOGGER.error("could not create the whitelisted servers file", exception)

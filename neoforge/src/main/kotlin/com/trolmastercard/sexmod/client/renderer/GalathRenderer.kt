@@ -736,7 +736,8 @@ open class GalathRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<o
          */
         @JvmStatic
         fun renderWingMesh(girl: BaseGirlEntity, poseStack: PoseStack, bufferSource: MultiBufferSource) {
-            if ((girl as IGalath).areWingsAnimated()) {
+            // ManglelieRenderer also calls this; she has no wing bones (1.12 never reached this path)
+            if (girl is IGalath && girl.areWingsAnimated()) {
                 val rightWing = Array(14) { i -> girl.getCachedBoneOffset("wingRV$i") }
                 val leftWing = Array(14) { i -> girl.getCachedBoneOffset("wingLV$i") }
                 val buffer = bufferSource.getBuffer(RenderType.entityTranslucent(GalathNpcModel.GALATH_TEXTURE))
