@@ -117,6 +117,8 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
         val pos = event.chunk.pos
         if (event.isNewChunk || this.deferredChunks.remove(pos.toLong())) {
             this.pendingChunks.add(pos)
+            // the pending set is saved; LevelEvent.Save fires after the data storage is written
+            this.setDirty()
         }
     }
 
@@ -148,6 +150,7 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
             }
 
             this.generate(createChunkRandom(level.seed, chunk.x, chunk.z), chunk.x, chunk.z, level)
+            this.setDirty()
             processed++
         }
     }

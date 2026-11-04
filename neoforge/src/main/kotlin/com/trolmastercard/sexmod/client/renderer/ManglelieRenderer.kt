@@ -460,7 +460,8 @@ open class ManglelieRenderer(ctx: EntityRendererProvider.Context, model: GeoMode
                         return
                     }
 
-                    bone.setPosY(bone.posY + driverRotation * 0.01f)
+                    // skirt bones have no animation tracks: offset from the rest pose so redraws don't stack it
+                    bone.setPosY(bone.initialSnapshot.offsetY + driverRotation * 0.01f)
                 }
 
                 if (ThreadNames.isBetween(boneIndex.toDouble(), 1.0, 11.0)) {

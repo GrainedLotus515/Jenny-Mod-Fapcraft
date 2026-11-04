@@ -137,3 +137,4 @@ Status of the Integrator TODOs / contract issues above:
 - Sound keyframes on the movement/eyes controllers: 1.12 ignored them silently; GL4 logs a warning each time, so every controller now has a no-op handler and the action controller gets the real one.
 - Horny effect icon: 1.12 used icon index (0, 0) of the vanilla sheet (Speed). The client effect extension draws the vanilla Speed sprite.
 - Inherited fixes: reskin browser "Remove" removes the selected applied pack (it always removed the first), and the wardrobe no longer prints debug messages in chat.
+- Re-check follow-ups: the worldgen data is marked dirty whenever the pending set changes (vanilla writes saved data before `LevelEvent.Save`); `getNearbyPlayers` uses NeoForge's `ChunkMap.getPlayersWatching` (the tracker's real `seenBy` set); Galath hair and Manglelie skirt offsets are taken from the rest pose so render-layer redraws (which skip the animation pass) don't stack them.

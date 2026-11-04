@@ -263,7 +263,8 @@ open class GalathRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<o
                     } else {
                         val tiltProgress = Math.min(1.0f, headPitchDegrees2 / 45.0f)
                         bone.setRotX(TrigMath.wrapDegrees(-headPitchDegrees2))
-                        bone.setPosY(bone.posY + tiltProgress * 1.5f)
+                        // hairBack has no animation tracks: offset from the rest pose so layer redraws don't stack it
+                        bone.setPosY(bone.initialSnapshot.offsetY + tiltProgress * 1.5f)
                     }
                 }
             }
@@ -276,7 +277,7 @@ open class GalathRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<o
                     } else {
                         val tiltProgress2 = Math.min(1.0f, headPitchDegrees / 45.0f)
                         bone.setRotX(TrigMath.wrapDegrees(-headPitchDegrees))
-                        bone.setPosY(bone.posY + tiltProgress2)
+                        bone.setPosY(bone.initialSnapshot.offsetY + tiltProgress2)
                     }
                 }
             }

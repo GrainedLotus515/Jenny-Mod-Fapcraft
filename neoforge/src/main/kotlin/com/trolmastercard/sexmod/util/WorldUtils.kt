@@ -11,7 +11,6 @@ import net.minecraft.world.Nameable
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.level.ChunkPos
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
@@ -229,11 +228,9 @@ object WorldUtils {
     }
 
     /**
-     * Players that can see `entity`. 1.12 asked the `EntityTracker` for the
-     * entity's tracking players; 1.21 keeps that set private, so this applies the
-     * same test as `ChunkMap.TrackedEntity.updatePlayer`: the player watches the
-     * entity's chunk, is within the entity type's (scaled) tracking range capped
-     * by the view distance, and the entity broadcasts to them.
+     * Players that can see `entity`: 1.12 `EntityTracker.getTrackingPlayers`.
+     * NeoForge's `ChunkMap.getPlayersWatching` returns the entity tracker's
+     * `seenBy` set (per-player view distance, passengers and tracking state included).
      */
     @JvmStatic
     fun getNearbyPlayers(entity: Entity?): Set<Player> {
@@ -242,18 +239,7 @@ object WorldUtils {
         }
         val server = ServerLifecycleHooks.getCurrentServer() ?: return emptySet()
         val level = server.getLevel(entity.level().dimension()) ?: return emptySet()
-        val range = Math.min(
-            server.getScaledTrackingDistance(entity.type.clientTrackingRange() * 16),
-            server.playerList.viewDistance * 16,
-        ).toDouble()
-        val pos = entity.position()
-        return level.chunkSource.chunkMap.getPlayers(ChunkPos(entity.blockPosition()), false)
-            .filter { player ->
-                val dx = player.x - pos.x
-                val dz = player.z - pos.z
-                dx * dx + dz * dz <= range * range && entity.broadcastToPlayer(player)
-            }
-            .toSet()
+        return level.chunkSource.chunkMap.getPlayersWatching(entity).toSet()
     }
 
     /**
