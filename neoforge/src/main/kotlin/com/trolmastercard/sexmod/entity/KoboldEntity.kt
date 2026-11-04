@@ -3,7 +3,7 @@ package com.trolmastercard.sexmod.entity
 import com.trolmastercard.sexmod.api.KoboldNames
 import com.trolmastercard.sexmod.client.gui.GuiHandler
 import com.trolmastercard.sexmod.client.gui.TribeNameScreen
-import com.trolmastercard.sexmod.client.renderer.KoboldRenderer
+import com.trolmastercard.sexmod.client.renderer.GirlRendererBase
 import com.trolmastercard.sexmod.entity.ai.DoorInteractAiGoal
 import com.trolmastercard.sexmod.entity.ai.WatchClosestGirlGoal
 import com.trolmastercard.sexmod.entity.api.IEllie
@@ -1154,7 +1154,7 @@ class KoboldEntity : AbstractNpcOnlyEntity, IEllie, Container, IKobold {
         }
 
         fun clearBoneColors() {
-            KoboldRenderer.clearBoneColors()
+            GirlRendererBase.clearBoneColors() // 1.12 inherited static (KoboldRenderer/GoblinRenderer)
         }
     }
 

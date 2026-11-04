@@ -122,6 +122,9 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
     /** The girl currently being rendered (Java `renderEntity`). */
     lateinit var renderEntity: T
 
+    /** Whether [renderEntity] has been set (Java `renderEntity != null`). */
+    fun hasRenderEntity(): Boolean = this::renderEntity.isInitialized
+
     @JvmField
     var BASE_SKIN_COLOR: Color = Color(245, 199, 165)
 
@@ -148,6 +151,10 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
      */
     @JvmField
     var javaRenderBase: Vec3 = Vec3.ZERO
+
+    /** Where the incoming pose stack sits, in the 1.12 frame (see [vanillaRenderBase]). */
+    @JvmField
+    var vanillaBase: Vec3 = Vec3.ZERO
 
     /** Offset from the vanilla entity origin to the position [getBoneWorldPos] chose. */
     @JvmField
@@ -287,9 +294,45 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
 
     /**
      * Java `doRenderEntity`. Subclasses that gate or wrap the whole girl render
-     * (player-girls, Galath, Manglelie) override this and call `super`.
+     * (player-girls, Galath, Manglelie) override this and call `super`. Computes the 1.12
+     * render position (`x, y, z` = lerped entity minus lerped local player) and delegates
+     * to the positional overload.
      */
     open fun doRenderEntity(entity: T, entityYaw: Float, partialTick: Float, poseStack: PoseStack, bufferSource: MultiBufferSource, packedLight: Int) {
+        val base = this.vanillaRenderBase(entity, entityYaw, partialTick)
+        this.doRenderEntity(entity, base.x, base.y, base.z, entityYaw, partialTick, poseStack, bufferSource, packedLight)
+    }
+
+    /**
+     * Where the incoming `poseStack` sits, in the 1.12 frame (relative to the lerped local
+     * player): for the vanilla dispatcher that is the lerped entity position minus the
+     * lerped local player. Renders issued directly at the 1.12 origin (e.g. the goblin
+     * first-person sentinel render) return [Vec3.ZERO].
+     */
+    open fun vanillaRenderBase(entity: T, entityYaw: Float, partialTick: Float): Vec3 {
+        val entityLerp = lerpedPosition(entity, partialTick)
+        val player = Minecraft.getInstance().player
+        val playerLerp = if (player == null) entityLerp else lerpedPosition(player, partialTick)
+        return entityLerp.subtract(playerLerp)
+    }
+
+    /**
+     * Java `doRenderEntity(entity, x, y, z, yaw, partialTicks)`: `x, y, z` are the 1.12 render
+     * coordinates (relative to the lerped local player). Subclasses that move the girl
+     * before the normal pipeline (goblin throw/shoulder poses) call this with their own
+     * coordinates.
+     */
+    open fun doRenderEntity(
+        entity: T,
+        x: Double,
+        y: Double,
+        z: Double,
+        entityYaw: Float,
+        partialTick: Float,
+        poseStack: PoseStack,
+        bufferSource: MultiBufferSource,
+        packedLight: Int,
+    ) {
         this.renderEntity = entity
         this.renderCtx.poseStack = poseStack
         this.renderCtx.bufferSource = bufferSource
@@ -297,18 +340,12 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
         this.renderCtx.partialTick = partialTick
         this.renderCtx.isReRender = false
 
-        // Java x, y, z: the entity's lerped position relative to the lerped local player
-        val entityLerp = lerpedPosition(entity, partialTick)
-        val player = Minecraft.getInstance().player
-        val playerLerp = if (player == null) entityLerp else lerpedPosition(player, partialTick)
-        val x = entityLerp.x - playerLerp.x
-        val y = entityLerp.y - playerLerp.y
-        val z = entityLerp.z - playerLerp.z
+        this.vanillaBase = this.vanillaRenderBase(entity, entityYaw, partialTick)
         this.javaRenderBase = Vec3(x, y, z)
 
         var boneWorldPos = this.getBoneWorldPos(entity, partialTick, x, y, z)
         boneWorldPos = this.getBoneWorldPos(entity, partialTick, boneWorldPos)
-        this.renderDelta = boneWorldPos.subtract(this.javaRenderBase)
+        this.renderDelta = boneWorldPos.subtract(this.vanillaBase)
         this.onBoneRenderStart(entity)
 
         poseStack.pushPose()
@@ -352,7 +389,7 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
         val bufferSource = this.renderCtx.bufferSource ?: return
         poseStack.pushPose()
         try {
-            poseStack.translate(x - this.javaRenderBase.x, y - this.javaRenderBase.y, z - this.javaRenderBase.z)
+            poseStack.translate(x - this.vanillaBase.x, y - this.vanillaBase.y, z - this.vanillaBase.z)
             this.renderNameTag(entity, Component.literal(text), poseStack, bufferSource, this.renderCtx.packedLight, this.renderCtx.partialTick)
         } finally {
             poseStack.popPose()
@@ -647,7 +684,7 @@ abstract class GirlRenderer<T : BaseGirlEntity>(
         try {
             // back to the vanilla entity origin, then to the 1.12 origin (the lerped local player)
             poseStack.translate(-this.renderDelta.x, -this.renderDelta.y, -this.renderDelta.z)
-            translateToPlayerOrigin(poseStack, animatable, partialTick)
+            poseStack.translate(-this.vanillaBase.x, -this.vanillaBase.y, -this.vanillaBase.z)
             this.renderCtx.poseStack = poseStack
             this.renderCtx.bufferSource = bufferSource
             this.renderCtx.packedLight = packedLight

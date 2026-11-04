@@ -32,3 +32,16 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - GeckoLib item renderers registered via `RegisterClientExtensionsEvent`.
 - `BuildInfo` falls back to the mod container version. `setFullBrightLightmap` is a PORT-GAP no-op.
 - Called against contract: `GuiHandler.openGui`, `ChestContainer(id, inv, buf)`, screens `(menu, inv, title)`, `Command*.register(dispatcher)`, `RenderHandler.register(event)`, `DownloadServerModelPacket(List<String>)`, the `ServerWhitelistManager.isGlobalRenderingDisabled()` method.
+
+## S6: Kobold and Goblin
+
+- Integrator TODO: register `ModEntities.KOBOLD_EGG_PROJECTILE` (MISC, 0.25×0.25) + `ThrownItemRenderer`.
+- `GoblinEntity.openGoblinPadForPlayer(uuid)` (dropped the `mc` param; a temporary `(Any?, UUID?)` overload exists for `SexSceneKeyHandler`).
+- Calls `GirlRendererBase.clearBoneColors()` and `AbstractPlayerKoblinGoboldRenderer.clearRenderCache()` directly (S2 must expose as `@JvmStatic`).
+- `KoboldEntity` / `GoblinEntity` companions re-export `CURRENT_ACTION`, `ACTION_TARGET_POS`, `APPEARANCE_DNA`.
+- Client tick handlers: `KoboldTribeEvents.ClientEvents`, `GoblinEventHandler.ClientEvents`, `GoblinCarryEvents.ClientEvents`.
+- `TribeWorldSavedData` → `SavedData` named `tribes`.
+- Flattening: egg colour via `ItemNbt.setMeta`; logs via `#minecraft:logs`; log→sapling map (default oak); mining drops = first loot drop.
+- Goblin stolen item drops only on real removal (not chunk unload). Carried goblin players: render cancelled + drawn later instead of being marked dead.
+- `EntityTeleportEvent.EnderEntity` for the kobold pearl. `spawnHealth` applied in constructor.
+- PORT-GAP: reviving a carrier entity removed client-side.

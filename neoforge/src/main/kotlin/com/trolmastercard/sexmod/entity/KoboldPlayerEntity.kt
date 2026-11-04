@@ -3,11 +3,11 @@ package com.trolmastercard.sexmod.entity
 import com.trolmastercard.sexmod.Main
 import com.trolmastercard.sexmod.client.model.AllieModel
 import com.trolmastercard.sexmod.client.model.api.IVanillaModel
-import com.trolmastercard.sexmod.client.renderer.KoboldRenderer
+import com.trolmastercard.sexmod.client.renderer.GirlRendererBase
 import com.trolmastercard.sexmod.entity.api.IKobold
 import com.trolmastercard.sexmod.registry.ModEntities
 import com.trolmastercard.sexmod.util.MatrixStack
-import com.trolmastercard.sexmod.util.PlayerKoboldRenderer
+import com.trolmastercard.sexmod.util.AbstractPlayerKoblinGoboldRenderer
 import com.trolmastercard.sexmod.util.RotationHelper
 import java.util.UUID
 import net.minecraft.core.BlockPos
@@ -297,12 +297,12 @@ class KoboldPlayerEntity : AbstractKoboldPlayerEntity, IKobold {
         fun handModel(): IVanillaModel = AllieModel()
 
         fun clearRenderCache() {
-            PlayerKoboldRenderer.clearRenderCache()
+            AbstractPlayerKoblinGoboldRenderer.clearRenderCache() // 1.12 inherited static
         }
 
         fun clearBoneColors() {
-            PlayerKoboldRenderer.clearRenderCache()
-            KoboldRenderer.clearBoneColors()
+            AbstractPlayerKoblinGoboldRenderer.clearRenderCache() // 1.12 inherited static
+            GirlRendererBase.clearBoneColors() // 1.12 inherited static (KoboldRenderer/GoblinRenderer)
         }
     }
 
