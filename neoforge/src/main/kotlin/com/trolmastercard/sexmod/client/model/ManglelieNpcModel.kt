@@ -18,7 +18,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.phys.Vec3
 import software.bernie.geckolib.animation.AnimationProcessor
 import software.bernie.geckolib.animation.AnimationState
-import software.bernie.geckolib.cache.object.GeoBone
+import software.bernie.geckolib.cache.`object`.GeoBone
 
 /**
  * Geckolib model for Manglelie: the manglelie geo (with a combined Galath pose

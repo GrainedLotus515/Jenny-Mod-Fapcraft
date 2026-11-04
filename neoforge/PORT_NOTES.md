@@ -69,3 +69,14 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - `DownloadServerModelPacket` has a leading request/chunk boolean; whitelist check moved to the handler.
 - `GirlInventoryScreen.actionPerformed` / `onButtonClick` take a button id. `GirlScreenBase.renderEntityPreview` and `GirlCameraHelper.applyCameraTransform` gained 1.21 render params.
 - Contract issues: `custom_model` registered at 0.6×1.8 but Java sizes it 0.1×0.1; `ServerWhitelistManager`, `UnknownScreen`, `CommandFuta` are COMMON.
+
+## S5: Galath, Manglelie, Dragon, BasicGirl
+
+- Integrator TODO: delete `DragonStaffItem.Events` registration in `ForgeEventHandler` (no handlers → bus throws).
+- Revived dead renderer code: Galath/Manglelie `doRender*`, `getBoneWorldPos*`, `renderMasterbateEffect`, `getWingColor` are now overrides of `doRenderEntity`, `getBoneWorldPos`, `onBoneRenderStart`, `getAdditionalOverlayColor` (old names delegate). The deobf had lost their override names, so the dash, POV and wing passes never drew in 1.12-remap.
+- POV/geometry statics take `PoseStack` + `MultiBufferSource`, pose at the 1.12 origin (`translateToPlayerOrigin`). `DynamicTrailRenderer` GL_POLYGON → TRIANGLE_FAN, camera-relative.
+- `GalathEntity` multipart: `IEntityMultiPart`, `isMultipartEntity`, `getParts`, `setId` numbering parts after the parent.
+- `ManglelieEntity.getYawRotation` inlines the threesome check (model class is client-only).
+- `DragonEntity.shouldBeSaved() = false`. Explosions use `ExplosionInteraction.TNT`.
+- PORT-GAPs: `RequestRidingPacket` chunk removal; Galath star ring line width; Manglelie fire renders while hidden; `SummonItemRenderer` dev-float branch hard-wired.
+- Latent: `GirlModel.getItemStackForBone` reads NPC armour keys (crash if ever called for Galath/Manglelie). `BeeWorldData.load` / `GirlWorldData` never read back (check SavedData registration).

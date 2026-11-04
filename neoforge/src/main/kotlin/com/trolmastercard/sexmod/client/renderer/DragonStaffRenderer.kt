@@ -22,7 +22,7 @@ import net.minecraft.world.phys.Vec3
 import org.joml.Quaternionf
 import org.joml.Vector2f
 import org.joml.Vector3f
-import software.bernie.geckolib.cache.object.GeoBone
+import software.bernie.geckolib.cache.`object`.GeoBone
 import software.bernie.geckolib.renderer.GeoItemRenderer
 
 /**

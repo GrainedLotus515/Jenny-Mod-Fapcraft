@@ -11,8 +11,8 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.RenderType
 import net.minecraft.util.FastColor
-import software.bernie.geckolib.cache.object.GeoBone
-import software.bernie.geckolib.cache.object.GeoCube
+import software.bernie.geckolib.cache.`object`.GeoBone
+import software.bernie.geckolib.cache.`object`.GeoCube
 import software.bernie.geckolib.renderer.GeoItemRenderer
 import software.bernie.geckolib.util.RenderUtil
 

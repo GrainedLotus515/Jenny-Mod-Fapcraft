@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.phys.Vec3
 import org.joml.Vector3f
-import software.bernie.geckolib.cache.object.GeoCube
+import software.bernie.geckolib.cache.`object`.GeoCube
 import software.bernie.geckolib.renderer.GeoItemRenderer
 import software.bernie.geckolib.util.RenderUtil
 
