@@ -113,3 +113,13 @@ Status of the Integrator TODOs / contract issues above:
 - `DragonBreathParticle`: get the particle atlas from the `TextureManager`. `Minecraft.getTextureAtlas(LOCATION_PARTICLES)` throws.
 - Verified in the client: Jenny strip, then a full blowjob scene through to the natural end (reset clears the anchor and the interacting player). R-Shift mid-scene does the full exit. Equipment menu: items move in and the helmet renders. Interaction menus open for Jenny, Ellie, Bia, Luna, Kobold, Galath and the tamed Bee (untamed Bee/Slime/Goblin have no menu, same as 1.12). The horny potion opens the girl picker and the player becomes Jenny. Allies Lamp summons Allie (blocked while the player is in a girl form, same as 1.12). Galath coin summons an owned Galath. Dragon staff fires. `/futa`, `/setmodelcode`, `/whitelistserver` and `/locatenearestgoblinlair` respond.
 - Open: after the Allies Lamp summon followed by R-Shift, the client stayed dimmed and chat would not open until a relog. The Allie wish menu did not appear during the ~10 s I waited. The thin vertical line in the sky was seen at some camera positions and could not be reproduced.
+
+## Interaction pass 2
+
+- `GIRL_ID` / `KOBOLD_NAME` were defined with random defaults. 1.21 only syncs entity data that differs from its default, so client and server had different girl IDs and every client->server packet for a code-spawned girl (Allie, scene girls) was dropped. This was the cause of the "Allie wish does nothing" and "stuck after R-Shift" reports. The server now re-sets both values after definition.
+- `/kill` in 1.21 deals `generic_kill`, not `fell_out_of_world`. Entities that only accepted out-of-world damage in 1.12 (Galath death cancel, Manglelie, Pyrocinical, energy ball, owned goblins, custom model) now accept both.
+- Worldgen: queued new chunks are generated only once their 3x3 neighbourhood is loaded, at most 8 per tick, so house placement no longer forces synchronous chunk generation.
+- Verified to the natural end: Jenny (blowjob), Ellie (carry), Bia (talk -> anal at bed), Luna (payment -> bed -> cowgirl), Kobold (oral), Goblin (pick up -> G pad -> nelson), Galath (coin -> cowgirl), Allie (wish, deepthroat). Tribe egg, tribe naming and dragon staff tribe GUI work. Fresh-world houses generate (jenny/ellie/luna/bia seen in the generation data).
+- Faithful quirks: the goblin nelson scene leaves the camera in third-person front (1.12 never resets it). The goblin G pad is hold-and-release.
+- The thin vertical line in the sky (centre column, looking roughly along +z) appears with every mod client handler disabled and no entities around, so it is not a mod render pass. Left as is.
+- Not verified: a player-form (potion) scene with an NPC needs a second player.

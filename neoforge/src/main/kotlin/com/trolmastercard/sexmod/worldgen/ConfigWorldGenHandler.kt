@@ -124,9 +124,25 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
             return
         }
 
-        while (true) {
+        // The house/lair checks read blocks up to one chunk outside the new chunk. Running them
+        // before the neighbours exist forced synchronous chunk generation on the server thread
+        // (multi-second stalls while exploring), so wait until the 3x3 area is loaded, give up
+        // on chunks that unloaded again, and spread the work over ticks.
+        var processed = 0
+        var remaining = this.pendingChunks.size
+        while (remaining-- > 0 && processed < MAX_CHUNKS_PER_TICK) {
             val chunk = this.pendingChunks.poll() ?: break
+            if (!level.hasChunk(chunk.x, chunk.z)) {
+                continue
+            }
+
+            if (!neighboursLoaded(level, chunk.x, chunk.z)) {
+                this.pendingChunks.add(chunk)
+                continue
+            }
+
             this.generate(createChunkRandom(level.seed, chunk.x, chunk.z), chunk.x, chunk.z, level)
+            processed++
         }
     }
 
@@ -409,6 +425,19 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
         @JvmStatic
         fun factory(): SavedData.Factory<ConfigWorldGenHandler> =
             SavedData.Factory({ getInstance() }, ::load, null)
+
+        private const val MAX_CHUNKS_PER_TICK = 8
+
+        private fun neighboursLoaded(level: ServerLevel, chunkX: Int, chunkZ: Int): Boolean {
+            for (dx in -1..1) {
+                for (dz in -1..1) {
+                    if (!level.hasChunk(chunkX + dx, chunkZ + dz)) {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
 
         @JvmStatic
         fun getChunkHash(pos: Point2D): String = pos.x.toString() + "|" + pos.y
