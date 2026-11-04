@@ -57,3 +57,15 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - Bee uses `FlyingMoveControl(this, 10, false)`. Two `HORNY_FLAG` keys kept separate.
 - New API: `EllieEntity.eyeBedBlocked`, `ElliePlayerEntity.eyeCrouched`, `AllieWorldData.DATA_NAME/load/factory`.
 - Known (kept from 1.12): Luna hook self-deletes on remote clients; `ElliePlayerEntity.updateAITasks` NPE when the owner is offline.
+
+## S3: UI, input/camera, custom models, commands, worldgen
+
+- Integrator TODO: add `io.github.realburst:unrar5j:v2.0.4` (implementation + jarJar) for `ReskinScanner` / `ReskinReader`.
+- Damage types `sexmod:succubus` and `sexmod:galath` (message id `galath`); succubus in `#minecraft:bypasses_armor` / `#bypasses_invulnerability`.
+- Biome modifiers for natural spawns: slime (swamp), bee (forest), pyrocinical + manglelie (nether).
+- Worldgen: new overworld chunks queued on load and generated at overworld tick end; lairs and kobold spawns overworld-only. Seed reproduces 1.12's actual `>> 2 + 1L` (shift by 3). `forceSpawn` dropped.
+- HUDs draw in `RenderGuiEvent.Post`.
+- Custom models/reskins live in mod maps; S2 models must check `ModelResources.getCustomBakedModel(rl)`, `ReskinManager.getGeoOverride(rl)`, `ReskinManager.getAnimationOverride(rl)` first. Custom model ids lowercased.
+- `DownloadServerModelPacket` has a leading request/chunk boolean; whitelist check moved to the handler.
+- `GirlInventoryScreen.actionPerformed` / `onButtonClick` take a button id. `GirlScreenBase.renderEntityPreview` and `GirlCameraHelper.applyCameraTransform` gained 1.21 render params.
+- Contract issues: `custom_model` registered at 0.6×1.8 but Java sizes it 0.1×0.1; `ServerWhitelistManager`, `UnknownScreen`, `CommandFuta` are COMMON.

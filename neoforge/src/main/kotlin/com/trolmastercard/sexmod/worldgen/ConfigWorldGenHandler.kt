@@ -342,7 +342,7 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
                     origin.x + offsetPos.x + 0.5, origin.y + offsetPos.y, origin.z + offsetPos.z + 0.5
                 )
                 val goblin = GoblinEntity(world, true, yaw, offsetPos)
-                goblin.forceSpawn = true
+                // 1.12 Entity.forceSpawn has no 1.21 equivalent (addFreshEntity always spawns into a loaded chunk)
                 world.addFreshEntity(goblin)
                 world.getChunk(chunkX, chunkZ).setUnsaved(true)
             }
