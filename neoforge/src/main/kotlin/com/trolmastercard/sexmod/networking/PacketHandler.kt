@@ -63,8 +63,8 @@ object PacketHandler {
         registrar.playToServer(UpdateVelocityPacket.TYPE, UpdateVelocityPacket.STREAM_CODEC) { p, c -> UpdateVelocityPacket.handle(p, c) }
         registrar.playBidirectional(UnknownPacket.TYPE, UnknownPacket.STREAM_CODEC) { p, c -> UnknownPacket.handle(p, c) }
         registrar.playToClient(SetPlayerCamPacket.TYPE, SetPlayerCamPacket.STREAM_CODEC) { p, c -> SetPlayerCamPacket.handle(p, c) }
-        // never registered in 1.12; registered here so it can be sent
-        registrar.playToServer(UpdateEquipmentPacket.TYPE, UpdateEquipmentPacket.STREAM_CODEC) { p, c -> UpdateEquipmentPacket.handle(p, c) }
+        // UpdateEquipmentPacket is deliberately not registered: 1.12 never registered or sent it, and its
+        // handler lets a client overwrite any girl's inventory with arbitrary NBT.
 
         // ---- S3 ----
         registrar.playToServer(UploadModelStringPacket.TYPE, UploadModelStringPacket.STREAM_CODEC) { p, c -> UploadModelStringPacket.handle(p, c) }
