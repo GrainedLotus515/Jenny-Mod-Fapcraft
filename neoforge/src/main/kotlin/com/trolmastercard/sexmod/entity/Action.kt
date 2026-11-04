@@ -450,11 +450,14 @@ enum class Action {
          * animation. GL3 read `AnimationData.tick`; GL4's equivalent is the
          * seek time the controller captured in `GirlAnimationController.process`.
          * Returns 0 while the controller does not exist (server / not yet rendered).
+         * GL3's tick was a whole tick and callers added the partial tick as [offset]; the GL4
+         * seek time already includes the partial tick, so [offset] is not added again.
          */
         @JvmStatic
+        @Suppress("UNUSED_PARAMETER")
         fun getActionTick(girl: BaseGirlEntity, offset: Float): Float {
             val controller = girl.actionController ?: return 0.0f
-            return (controller.lastSeekTime + offset - controller.getTickOffset()).toFloat()
+            return (controller.lastSeekTime - controller.getTickOffset()).toFloat()
         }
 
         /** CLIENT. */

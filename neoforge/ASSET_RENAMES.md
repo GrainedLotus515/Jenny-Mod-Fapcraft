@@ -105,3 +105,7 @@ All 7 files have a `DataVersion` tag, so 1.21 runs the structure DataFixer on lo
 - `models/spider.mp4`, `models/block/fire_no_spread.txt` (not resources). `models/item/stick.json` (invalid JSON with a trailing comma, and no item uses it).
 - Sound-folder files that `sounds.json` does not reference: 29 files, namely the helper scripts `*.py` and the `misc/belljingle/Jenny_Bell jingle  (N).mp3` source files. Their names contain spaces, capitals and parentheses, which are invalid paths, and they are unused because `belljingle0.ogg` is the registered sound.
 - `banner.txt` **was** copied (to the jar root), because `Main` reads it via `getResourceAsStream("/banner.txt")`.
+
+## Constant expressions folded
+
+Keyframe values that were constant-only arithmetic strings (e.g. `"261.0538-360"`, `"360*2"`) are written as plain numbers in `animations/{bia,cat,ellie,galath,goblin,jenny,manglelie,slime}` (1,720 values). GeckoLib 4.9.3 folds such expressions after its degrees-to-radians conversion, so rotations came out in the wrong unit. Values with Molang variables (`size`, `pitch`, ...) are untouched.

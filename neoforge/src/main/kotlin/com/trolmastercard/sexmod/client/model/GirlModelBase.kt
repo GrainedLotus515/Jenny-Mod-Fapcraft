@@ -6,6 +6,7 @@ import com.trolmastercard.sexmod.util.ModelResources
 import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.animatable.GeoAnimatable
 import software.bernie.geckolib.animation.Animation
+import software.bernie.geckolib.animation.AnimationState
 import software.bernie.geckolib.cache.GeckoLibCache
 import software.bernie.geckolib.cache.`object`.BakedGeoModel
 import software.bernie.geckolib.loading.`object`.BakedAnimations
@@ -58,6 +59,21 @@ abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoMod
         }
 
         return model
+    }
+
+    /**
+     * GL3 reset every bone channel the current animation does not key back to the rest pose on each
+     * tick, so the mod's per-frame hooks (eye spacing, hair tilt, skirt lift, head sway...) could add
+     * offsets to the bone's current value. GL4 skips that reset for channels marked changed, and the
+     * hooks mark them again after every tick, so the offsets accumulated (kobold eyes drifting apart).
+     * Clearing the markers first restores the GL3 reset; channels the animation keys are unaffected.
+     */
+    override fun handleAnimations(animatable: T, instanceId: Long, animationState: AnimationState<T>, partialTick: Float) {
+        for (bone in this.animationProcessor.registeredBones) {
+            bone.resetStateChanges()
+        }
+
+        super.handleAnimations(animatable, instanceId, animationState, partialTick)
     }
 
     /** Runtime animations (custom models) first, then GeckoLib's cache. */
