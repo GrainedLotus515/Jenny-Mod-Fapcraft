@@ -1042,7 +1042,8 @@ open class GalathEntity : BaseGirlEntity, SexEntityPart.IEntityMultiPart, IGalat
         open fun onLivingDeath(event: LivingDeathEvent) {
             val entity = event.entity
             if (entity is GalathEntity) {
-                if (!event.source.`is`(DamageTypes.FELL_OUT_OF_WORLD)) {
+                // 1.12 /kill dealt OUT_OF_WORLD damage; 1.21 /kill uses GENERIC_KILL
+                if (!event.source.`is`(DamageTypes.FELL_OUT_OF_WORLD) && !event.source.`is`(DamageTypes.GENERIC_KILL)) {
                     val galath = entity
                     if (!galath.deathHandled) {
                         if (!entity.level().isClientSide) {

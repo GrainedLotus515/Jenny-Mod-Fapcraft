@@ -187,7 +187,7 @@ open class DragonEntity : Mob {
     }
 
     override fun hurt(source: DamageSource, amount: Float): Boolean {
-        if (source.`is`(DamageTypes.FELL_OUT_OF_WORLD)) {
+        if ((source.`is`(DamageTypes.FELL_OUT_OF_WORLD) || source.`is`(DamageTypes.GENERIC_KILL))) {
             this.health = 0.0f
             this.shouldSpawnSkeleton = false
             this.discard()

@@ -66,7 +66,7 @@ class GoblinEventHandler {
     /** 1.12 `LivingAttackEvent`. */
     @SubscribeEvent
     fun onLivingAttack(event: LivingIncomingDamageEvent) {
-        if (!event.source.`is`(DamageTypes.FELL_OUT_OF_WORLD)) {
+        if (!(event.source.`is`(DamageTypes.FELL_OUT_OF_WORLD) || event.source.`is`(DamageTypes.GENERIC_KILL))) {
             val living = event.entity
             if (living is GoblinEntity) {
                 if (living.getOwnerUUID() != null) {

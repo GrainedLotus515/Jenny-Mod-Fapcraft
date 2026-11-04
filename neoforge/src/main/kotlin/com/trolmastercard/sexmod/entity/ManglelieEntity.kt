@@ -601,7 +601,7 @@ open class ManglelieEntity : BaseGirlEntity {
      * Mang herself never takes hits.
      */
     override fun hurt(source: DamageSource, amount: Float): Boolean {
-        if (source.`is`(DamageTypes.FELL_OUT_OF_WORLD)) {
+        if ((source.`is`(DamageTypes.FELL_OUT_OF_WORLD) || source.`is`(DamageTypes.GENERIC_KILL))) {
             return super.hurt(source, amount)
         }
 

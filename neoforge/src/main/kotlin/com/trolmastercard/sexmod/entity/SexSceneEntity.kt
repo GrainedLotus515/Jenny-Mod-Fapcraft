@@ -79,7 +79,7 @@ open class SexSceneEntity : LivingEntity, GeoEntity {
     }
 
     override fun hurt(source: DamageSource, amount: Float): Boolean =
-        if (!source.`is`(DamageTypes.FELL_OUT_OF_WORLD)) false else super.hurt(source, amount)
+        if (!(source.`is`(DamageTypes.FELL_OUT_OF_WORLD) || source.`is`(DamageTypes.GENERIC_KILL))) false else super.hurt(source, amount)
 
     open fun getModelCode(): String? {
         val data = this.entityData.get(modelData)
