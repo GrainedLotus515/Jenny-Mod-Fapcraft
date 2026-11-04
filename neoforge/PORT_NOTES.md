@@ -45,3 +45,15 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - Goblin stolen item drops only on real removal (not chunk unload). Carried goblin players: render cancelled + drawn later instead of being marked dead.
 - `EntityTeleportEvent.EnderEntity` for the kobold pearl. `spawnHealth` applied in constructor.
 - PORT-GAP: reviving a carrier entity removed client-side.
+
+## S4: Jenny, Ellie, Bia, Luna, Slime, Bee, Allie
+
+- Integrator TODO: remove `bus.register(LunaRodItem.Events)` / `AlliesLampItem.Events` from `ForgeEventHandler` (empty objects throw).
+- `BeeEntityBase` implements 1.21 `Container`; `getField`/`setField`/`getFieldCount` stay plain methods.
+- Sound handlers use `I18n.get` (client path); server-reachable code uses a private `i18n()` that returns the key.
+- Runtime-changing eye heights (Ellie, Ellie player, wild slime) cached + `refreshDimensions()`.
+- Luna headpat reward is `ItemStack.EMPTY`; Lure level = fishing time reduction / 5.
+- `SexEntity` (luna hook) sets its owner after construction and isn't saved to disk.
+- Bee uses `FlyingMoveControl(this, 10, false)`. Two `HORNY_FLAG` keys kept separate.
+- New API: `EllieEntity.eyeBedBlocked`, `ElliePlayerEntity.eyeCrouched`, `AllieWorldData.DATA_NAME/load/factory`.
+- Known (kept from 1.12): Luna hook self-deletes on remote clients; `ElliePlayerEntity.updateAITasks` NPE when the owner is offline.
