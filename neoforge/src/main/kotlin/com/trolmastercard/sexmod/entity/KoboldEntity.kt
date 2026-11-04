@@ -233,6 +233,13 @@ class KoboldEntity : AbstractNpcOnlyEntity, IEllie, Container, IKobold {
         this.entityData.set(ACTION_TARGET_POS, BlockPos(color.getMainColor()))
         this.entityData.set(CURRENT_ACTION, DEFAULT_EYE_COLOR.name)
         this.entityData.set(SIZE_SCALAR, 0.0f)
+        // the random name default is never synced (1.21 sends only non-default values); re-set it
+        // with a different value so client and server agree (this is guarded against an equal reroll)
+        if (!level.isClientSide) {
+            val names = KoboldNames.values()
+            val current = this.entityData.get(KOBOLD_NAME)
+            this.entityData.set(KOBOLD_NAME, names.filter { it.toString() != current }.let { it[this.random.nextInt(it.size)] }.toString())
+        }
         // 1.12 applyEntityAttributes read the static spawnHealth at construction time
         this.getAttribute(Attributes.MAX_HEALTH)?.baseValue = spawnHealth
         this.health = this.maxHealth

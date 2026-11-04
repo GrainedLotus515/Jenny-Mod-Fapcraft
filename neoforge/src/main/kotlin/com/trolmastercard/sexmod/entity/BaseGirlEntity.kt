@@ -220,6 +220,14 @@ abstract class BaseGirlEntity : PathfinderMob, GeoEntity {
     var jumpMovementFactor: Float = 0.02f
 
     protected constructor(type: EntityType<out BaseGirlEntity>, level: Level) : super(type, level) {
+        if (!level.isClientSide) {
+            // 1.21 only syncs entity data that differs from its defined default, so the random
+            // default from defineSynchedData never reached the client (each side had its own
+            // girl ID and client->server packets for code-spawned girls were dropped). Re-set it
+            // on the server so it counts as non-default and is sent with the spawn data.
+            this.entityData.set(GIRL_ID, UUID.randomUUID().toString())
+        }
+
         if (level.isClientSide) {
             this.initAnimationControllers()
         }
