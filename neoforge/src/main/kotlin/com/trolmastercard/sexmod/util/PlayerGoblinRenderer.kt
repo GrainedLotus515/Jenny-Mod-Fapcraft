@@ -398,4 +398,12 @@ open class PlayerGoblinRenderer(ctx: EntityRendererProvider.Context, geoModel: G
             poseStack.translate(-0.02, -0.05, -0.05)
         }
     }
+
+    companion object {
+        /** Java static inherited from [AbstractPlayerKoblinGoboldRenderer]; companions are not inherited in Kotlin. */
+        @JvmStatic
+        fun clearRenderCache() {
+            AbstractPlayerKoblinGoboldRenderer.clearRenderCache()
+        }
+    }
 }

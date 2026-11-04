@@ -5,6 +5,7 @@ import com.trolmastercard.sexmod.MatrixHelper
 import com.trolmastercard.sexmod.client.SexWorldClient
 import com.trolmastercard.sexmod.entity.AbstractNpcOnlyEntity
 import com.trolmastercard.sexmod.entity.Action
+import com.trolmastercard.sexmod.entity.BaseGirlEntity
 import com.trolmastercard.sexmod.entity.BodyParts
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.core.Vec3i
@@ -39,7 +40,7 @@ import software.bernie.geckolib.util.RenderUtil
  */
 abstract class GirlRendererBase<G : AbstractNpcOnlyEntity>(
     ctx: EntityRendererProvider.Context,
-    model: GeoModel<out AbstractNpcOnlyEntity>,
+    model: GeoModel<out BaseGirlEntity>,
     shadowSize: Double,
 ) : GirlRenderer<G>(ctx, model, shadowSize) {
     /**

@@ -80,3 +80,13 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - `DragonEntity.shouldBeSaved() = false`. Explosions use `ExplosionInteraction.TNT`.
 - PORT-GAPs: `RequestRidingPacket` chunk removal; Galath star ring line width; Manglelie fire renders while hidden; `SummonItemRenderer` dev-float branch hard-wired.
 - Latent: `GirlModel.getItemStackForBone` reads NPC armour keys (crash if ever called for Galath/Manglelie). `BeeWorldData.load` / `GirlWorldData` never read back (check SavedData registration).
+
+## S2: Rendering core
+
+- Hook API for subclass renderers: `GirlRenderer<T : BaseGirlEntity>(ctx, model, shadowOffset)`; render state in `renderCtx` (`poseStack`, `bufferSource`, `buffer()`, `packedLight`, `packedOverlay`, `partialTick`, `switchTexture(rl)`, `restoreBuffer()`, `resetTexture()`); overridable `doRenderEntity(...)`, `vanillaRenderBase`, `renderModel`, `renderModelBuffer`, `renderRecursively`, `renderCustomBones`, `onBoneProcessing`, `renderCubeGeometry`, `emitQuad`, `renderHeldItem`, `getBoneWorldPos`, `getAdditionalOverlayColor`, `getBlacklistedBones`. Statics: `renderGirlTint`, `renderNameLabel`, `translateToPlayerOrigin`, `lerpedPosition`, `mc`. `MatrixHelper.applyBoneTransform(poseStack, bone)`.
+- Dead 1.12-remap code wired up: `doRenderGoblin`, `doRenderKobold`, `doRenderBasicGirl`, `doRenderSexEntity` (SexEntityRenderer / BasicGirlRenderer drew nothing before).
+- Girls use vanilla directional shading (1.12 had GL lighting off) and a translucent no-cull render type.
+- Custom parts drawn with their own model texture (1.12 bound the kobold egg texture, treated as a bug).
+- Name tags culled at 64 blocks (was 300). Overlay lines use the vanilla line shader. Player girls still show the fire overlay (gap).
+- Runtime models go in `GirlModelBase.CUSTOM_BAKED_MODELS` / `CUSTOM_ANIMATIONS` (S3's reskin/model code must feed these).
+- Integrator TODO: `ClientProxy` should listen to `RegisterEntitySpectatorShadersEvent` → `ShaderHelper.initOutlineShader(event, girlTypes)`.

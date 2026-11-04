@@ -21,11 +21,11 @@ import software.bernie.geckolib.animation.AnimationState
  */
 class SexSceneModel : GirlModelBase<SexSceneEntity>() {
     override fun getModelResource(sceneEntity: SexSceneEntity): ResourceLocation {
-        return if (sceneEntity.isItemModel) Main.rl("geo/cross.geo.json") else ServerWhitelistManager.getModelResource(sceneEntity.getModelCode())
+        return if (sceneEntity.isItemModel) Main.rl("geo/cross.geo.json") else ServerWhitelistManager.getModelResource(sceneEntity.getModelCode() ?: "")!! // java-npe: an unknown part has no model
     }
 
     override fun getTextureResource(sceneEntity: SexSceneEntity): ResourceLocation {
-        return if (sceneEntity.isItemModel) Main.rl("textures/cross.png") else ServerWhitelistManager.getModelTexture(sceneEntity.getModelCode())
+        return if (sceneEntity.isItemModel) Main.rl("textures/cross.png") else ServerWhitelistManager.getModelTexture(sceneEntity.getModelCode() ?: "")!! // java-npe: an unknown part has no texture
     }
 
     override fun getAnimationResource(sceneEntity: SexSceneEntity): ResourceLocation = Main.rl("animations/slime/slime.animation.json")

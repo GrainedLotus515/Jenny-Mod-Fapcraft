@@ -65,7 +65,7 @@ import software.bernie.geckolib.model.GeoModel
  * (1.12 popped only in first person and leaked otherwise). [setFirstPersonCamera] and
  * [renderEntityInFirstPerson] take the pose/buffer state.
  */
-class GoblinRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out AbstractNpcOnlyEntity>, shadowSize: Double) :
+class GoblinRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out BaseGirlEntity>, shadowSize: Double) :
     GirlRendererBase<GoblinEntity>(ctx, model, shadowSize) {
     @JvmField var currentYawOffset: Float = 0.0f
     @JvmField var isShoulderIdle: Boolean = false
@@ -401,6 +401,12 @@ class GoblinRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out Ab
     }
 
     companion object {
+        /** Java static inherited from [GirlRendererBase]; companions are not inherited in Kotlin. */
+        @JvmStatic
+        fun clearBoneColors() {
+            GirlRendererBase.clearBoneColors()
+        }
+
         @JvmField val DEFAULT_BONE_COLOR: Vec3i = Vec3i(255, 255, 255)
         const val SENTINEL_VALUE: Float = -420.69f
         const val RENDER_SCALE_B: Float = 3.0f

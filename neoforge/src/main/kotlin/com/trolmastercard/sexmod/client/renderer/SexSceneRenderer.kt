@@ -134,7 +134,7 @@ class SexSceneRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<SexS
      * server) so stale parts don't linger client-side.
      */
     fun shouldRenderItemModel(sceneEntity: SexSceneEntity): Boolean {
-        val modelCode = sceneEntity.getModelCode()
+        val modelCode = sceneEntity.getModelCode() ?: ""
         if (sceneEntity.isItemModel) {
             return false
         }
@@ -147,13 +147,13 @@ class SexSceneRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<SexS
             return true
         }
 
-        val girlUuid = sceneEntity.getGirlIdFromCode()
+        val girlUuid = sceneEntity.getGirlIdFromCode() ?: return true
         val girl = BaseGirlEntity.getClientGirlEntity(girlUuid) ?: return true
 
         val customParts = girl.getCustomPartsSet()
         customParts.remove(modelCode)
         val encodedParts = BaseGirlEntity.encodeCustomParts(customParts)
-        PacketHandler.networkWrapper.sendToServer(UploadModelStringPacket(encodedParts, sceneEntity.getGirlIdFromCode()))
+        PacketHandler.networkWrapper.sendToServer(UploadModelStringPacket(encodedParts, girlUuid))
         return true
     }
 
@@ -206,7 +206,7 @@ class SexSceneRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<SexS
             if (!ServerWhitelistManager.isGlobalRenderingDisabled()) {
                 if (!this.shouldRenderItemModel(entity)) {
                     entity.matrixStack = MatrixStack()
-                    val modelData = ServerWhitelistManager.getModelDataForGirl(entity.getModelCode())
+                    val modelData = ServerWhitelistManager.getModelDataForGirl(entity.getModelCode() ?: "")
                     this.sceneEntity = entity
                     this.modelData = modelData
                     this.renderModelData(modelData, entity, partialTicks)
@@ -314,7 +314,7 @@ class SexSceneRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<SexS
         if (sceneEntity.isItemModel) {
             return sceneEntity.boneType?.boneName
         } else {
-            val modelData = ServerWhitelistManager.getModelDataForGirl(sceneEntity.getModelCode()) ?: return null
+            val modelData = ServerWhitelistManager.getModelDataForGirl(sceneEntity.getModelCode() ?: "") ?: return null
             return if (BoneType.CUSTOM_BONE == modelData.getBoneType()) modelData.getModelName() else modelData.getBoneType()?.boneName
         }
     }

@@ -38,7 +38,7 @@ import software.bernie.geckolib.model.GeoModel
  * Port note: [doRenderEntity] routes through [doRenderKobold] (the 1.12 class defined it
  * but nothing called it, so the colour cache was never invalidated on colour changes).
  */
-class KoboldRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out AbstractNpcOnlyEntity>, shadowSize: Double) :
+class KoboldRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out BaseGirlEntity>, shadowSize: Double) :
     GirlRendererBase<KoboldEntity>(ctx, model, shadowSize) {
     /**
      * Bone tint by name: hide-list bones use the kobold color's main color,
@@ -173,6 +173,12 @@ class KoboldRenderer(ctx: EntityRendererProvider.Context, model: GeoModel<out Ab
     }
 
     companion object {
+        /** Java static inherited from [GirlRendererBase]; companions are not inherited in Kotlin. */
+        @JvmStatic
+        fun clearBoneColors() {
+            GirlRendererBase.clearBoneColors()
+        }
+
         @JvmField
         val hideBones: HashSet<String> = hashSetOf(
             "colorSpots", "neck", "head", "snout", "midSectionR", "midSectionL", "innerCheekLR", "innerCheekRR", "gayL", "gayR",
