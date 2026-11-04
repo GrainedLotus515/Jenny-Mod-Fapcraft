@@ -106,3 +106,10 @@ Status of the Integrator TODOs / contract issues above:
 - `GalathRenderer.renderWingMesh` guards `is IGalath` (Manglelie reaches it via the revived POV pass and crashed the client).
 - Girl "disappearances" in the first smoke test were suffocation at y=-60 inside deepslate, not a despawn bug; `removeWhenFarAway` = false matches 1.12. Allie (NULL action) and wild Manglelie without a mommy discard themselves at tick 1, as in 1.12.
 - Dev: `./gradlew runClient -PquickPlay=localhost:25565` joins a server directly.
+
+## Interaction pass
+
+- Plain screens (interaction menu, bee dialogue, clothing, Galath, tribe name, structure command, girl picker) must close with `Minecraft.setScreen(null)`. `player.closeContainer()` sends a container-close packet, and in 1.21 that closes the menu the server has just opened (the equipment and chest buttons appeared to do nothing).
+- `DragonBreathParticle`: get the particle atlas from the `TextureManager`. `Minecraft.getTextureAtlas(LOCATION_PARTICLES)` throws.
+- Verified in the client: Jenny strip, then a full blowjob scene through to the natural end (reset clears the anchor and the interacting player). R-Shift mid-scene does the full exit. Equipment menu: items move in and the helmet renders. Interaction menus open for Jenny, Ellie, Bia, Luna, Kobold, Galath and the tamed Bee (untamed Bee/Slime/Goblin have no menu, same as 1.12). The horny potion opens the girl picker and the player becomes Jenny. Allies Lamp summons Allie (blocked while the player is in a girl form, same as 1.12). Galath coin summons an owned Galath. Dragon staff fires. `/futa`, `/setmodelcode`, `/whitelistserver` and `/locatenearestgoblinlair` respond.
+- Open: after the Allies Lamp summon followed by R-Shift, the client stayed dimmed and chat would not open until a relog. The Allie wish menu did not appear during the ~10 s I waited. The thin vertical line in the sky was seen at some camera positions and could not be reproduced.
