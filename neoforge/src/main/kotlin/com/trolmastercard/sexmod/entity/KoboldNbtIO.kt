@@ -56,7 +56,10 @@ object KoboldNbtIO {
         }
 
         data.set(KoboldEntity.SIZE_SCALAR, nbt.getFloat("body_size"))
-        data.set(KoboldEntity.KOBOLD_NAME, nbt.getString("name"))
+        // 1.21 /summon loads an empty tag before finalizeSpawn; keep the constructor name then
+        if (nbt.contains("name")) {
+            data.set(KoboldEntity.KOBOLD_NAME, nbt.getString("name"))
+        }
         data.set(BaseGirlEntity.MASTER, nbt.getString("master"))
         entity.inventory.deserializeNBT(entity.registryAccess(), nbt.getCompound("inventory"))
         val bodyColor = nbt.getString("bodyColor")
