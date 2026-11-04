@@ -89,14 +89,15 @@ class DragonStaffItem : Item(Properties().stacksTo(1)), GeoItem {
                 player.getItemInHand(InteractionHand.OFF_HAND).item === DRAGON_STAFF
             ) {
                 val block = event.level.getBlockState(event.pos).block
+                // 1.12 cancelled with FAIL and still fell through to the item's right-click (opening the
+                // tribe GUI). 1.21 stops at FAIL, so PASS keeps the bed/chest closed and lets the item use run.
                 if (block is BedBlock) {
-                    // 1.12 also set Result.DENY; cancelling with a FAIL result covers it in 1.21
-                    event.cancellationResult = InteractionResult.FAIL
+                    event.cancellationResult = InteractionResult.PASS
                     event.isCanceled = true
                 }
 
                 if (block is ChestBlock) {
-                    event.cancellationResult = InteractionResult.FAIL
+                    event.cancellationResult = InteractionResult.PASS
                     event.isCanceled = true
                 }
             }

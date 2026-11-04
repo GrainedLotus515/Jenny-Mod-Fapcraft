@@ -127,3 +127,4 @@ Status of the Integrator TODOs / contract issues above:
 ## Bug fixes
 
 - `ClientServerCheck`: the 1.21 client main thread is "Render thread" (1.12: "Client thread"), so the name test missed it and every call fell through to the warning branch, spamming the log. "render" now counts as client. The 1.21 `entity-deserializer` thread (server entity loading) and any thread on a dedicated server count as server.
+- Dragon Staff on a bed or chest: 1.12 cancelled the block click with FAIL and the client still fell through to the item right-click (tribe GUI with the "mark" quadrant). 1.21 stops at FAIL, so the cancel now returns PASS.
