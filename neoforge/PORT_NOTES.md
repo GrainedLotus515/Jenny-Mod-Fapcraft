@@ -90,3 +90,19 @@ Running log of contract deviations each slice reported. Read together with PORTI
 - Name tags culled at 64 blocks (was 300). Overlay lines use the vanilla line shader. Player girls still show the fire overlay (gap).
 - Runtime models go in `GirlModelBase.CUSTOM_BAKED_MODELS` / `CUSTOM_ANIMATIONS` (S3's reskin/model code must feed these).
 - Integrator TODO: `ClientProxy` should listen to `RegisterEntitySpectatorShadersEvent` → `ShaderHelper.initOutlineShader(event, girlTypes)`.
+
+## Integration (runtime pass)
+
+Status of the Integrator TODOs / contract issues above:
+- Done: `kobold_egg_projectile` + `ThrownItemRenderer`; dead `Events` registrations removed; unrar5j jarJar; temporary `openGoblinPadForPlayer(Any?, UUID?)` overload removed; `custom_model` sized 0.1×0.1 (1.12).
+- SavedData (`GirlSavedData`, `GirlWorldData`, `BeeWorldData`, `AllieWorldData`, `TribeWorldSavedData`): loading always worked (`computeIfAbsent` on `LevelEvent.Load`), but nothing was ever written: `LevelEvent.Save` fires after `ServerLevel.saveLevelData()` flushed the data storage. The shells now override `isDirty() = true`. Verified: files written, restart reloads without errors.
+- `GirlModelBase` model lookup order: `CUSTOM_BAKED_MODELS` → `ReskinManager.getGeoOverride` → `ModelResources.getCustomBakedModel`; animations: `CUSTOM_ANIMATIONS` → `ReskinManager.getAnimationOverride`.
+- `GirlModel.getItemStackForBone` returns EMPTY for non-`AbstractGirlNpcEntity` girls.
+- `RegisterEntitySpectatorShadersEvent`: deliberately NOT wired. 1.12 `initOutlineShader()` had no caller and `shaders/post/outline.json` never existed; registering would point spectators at a missing shader.
+- `ServerWhitelistManager` / `UnknownScreen` / `CommandFuta` COMMON: left as is (no server class-loading problem observed).
+- GeckoLib 4 rejects unknown Molang variables at parse time (GL3 auto-registered them as 0). `MolangVars.registerAll()` (called from `ClientProxy.construct`) pre-registers `size`, `scale`, `pitch`, `yaw`, `armpitch`, `armyaw` and the Blockbench junk identifiers (`nan`, `linear`, easing names) as 0. Unparseable keyframe strings (`"."`, `"50+."`, `"NaN-1*"`, `` "`-1" ``, trailing `size * `) were fixed in the JSON.
+- Structures: 1.12 structure NBT relied on block entities for flower pot contents, skull type, bed and banner colours; DFU cannot flatten those in templates (flower pots threw, skulls became `%%FILTER_ME%%`). The palettes were pre-flattened offline from the block entity data.
+- `GoblinPersistence.read` returns early when the tag has no `model` (1.21 `/summon` loads an empty tag before `finalizeSpawn`).
+- `GalathRenderer.renderWingMesh` guards `is IGalath` (Manglelie reaches it via the revived POV pass and crashed the client).
+- Girl "disappearances" in the first smoke test were suffocation at y=-60 inside deepslate, not a despawn bug; `removeWhenFarAway` = false matches 1.12. Allie (NULL action) and wild Manglelie without a mommy discard themselves at tick 1, as in 1.12.
+- Dev: `./gradlew runClient -PquickPlay=localhost:25565` joins a server directly.
