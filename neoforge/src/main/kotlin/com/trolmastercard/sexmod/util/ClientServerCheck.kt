@@ -1,12 +1,13 @@
 package com.trolmastercard.sexmod.util
 
 import com.trolmastercard.sexmod.Main
+import net.neoforged.fml.loading.FMLEnvironment
 import net.neoforged.neoforge.server.ServerLifecycleHooks
 
 /**
  * **Role.** Best-effort CLIENT/SERVER thread detector, used by
  * [ThreadNames.createDaemonThread] to name daemon threads. Decides by
- * thread name first ("server"/"client" substring); falls back to
+ * thread name first ("server"/"client"/"render" substring); falls back to
  * the server's `isSameThread` with a warning when the name is ambiguous.
  */
 object ClientServerCheck {
@@ -14,11 +15,13 @@ object ClientServerCheck {
     @JvmStatic
     fun getInstance(): Boolean {
         val threadName = Thread.currentThread().name.lowercase()
-        if (threadName.contains("server")) {
+        // "entity-deserializer" is the 1.21 server thread that loads saved entities.
+        if (threadName.contains("server") || threadName.contains("entity-deserializer") || FMLEnvironment.dist.isDedicatedServer) {
             return true
         }
 
-        if (threadName.contains("client")) {
+        // 1.21 renamed the client main thread from "Client thread" to "Render thread".
+        if (threadName.contains("client") || threadName.contains("render")) {
             return false
         }
 

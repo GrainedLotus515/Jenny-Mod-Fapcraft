@@ -123,3 +123,7 @@ Status of the Integrator TODOs / contract issues above:
 - Faithful quirks: the goblin nelson scene leaves the camera in third-person front (1.12 never resets it). The goblin G pad is hold-and-release.
 - The thin vertical line in the sky (centre column, looking roughly along +z) appears with every mod client handler disabled and no entities around, so it is not a mod render pass. Left as is.
 - Not verified: a player-form (potion) scene with an NPC needs a second player.
+
+## Bug fixes
+
+- `ClientServerCheck`: the 1.21 client main thread is "Render thread" (1.12: "Client thread"), so the name test missed it and every call fell through to the warning branch, spamming the log. "render" now counts as client. The 1.21 `entity-deserializer` thread (server entity loading) and any thread on a dedicated server count as server.
