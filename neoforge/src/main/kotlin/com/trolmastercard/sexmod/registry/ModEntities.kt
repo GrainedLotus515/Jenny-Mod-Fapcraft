@@ -19,6 +19,7 @@ import com.trolmastercard.sexmod.entity.GoblinPlayerEntity
 import com.trolmastercard.sexmod.entity.JennyEntity
 import com.trolmastercard.sexmod.entity.JennyPlayerEntity
 import com.trolmastercard.sexmod.entity.KoboldEggEntity
+import com.trolmastercard.sexmod.entity.KoboldEggProjectileEntity
 import com.trolmastercard.sexmod.entity.KoboldEntity
 import com.trolmastercard.sexmod.entity.KoboldPlayerEntity
 import com.trolmastercard.sexmod.entity.LunaEntity
@@ -59,8 +60,8 @@ import java.util.function.Supplier
  * [RegisterCapabilitiesEvent] (`Capabilities.ItemHandler.ENTITY` -> `girl.inventory`
  * for every [AbstractGirlNpcEntity] type, replacing the 1.12 `getCapability` override).
  *
- * `KoboldEggProjectileEntity` is intentionally not registered (it was never
- * registered in 1.12 and has no spawn site; see PORTING.md §2.5).
+ * `KoboldEggProjectileEntity` is registered as `kobold_egg_projectile`: in 1.12 it was
+ * never registered, but `SendCompanionHomePacket` spawns it, which 1.21 requires a type for.
  */
 object ModEntities {
     @JvmField
@@ -96,6 +97,7 @@ object ModEntities {
     @JvmField val GOBLIN = register("goblin", { t, l -> GoblinEntity(t, l) }, MobCategory.CREATURE, 0.5f, 0.99f, 4, true)
     @JvmField val GALATH = register("galath", { t, l -> GalathEntity(t, l) }, MobCategory.CREATURE, 0.6f, 1.8f, 4, true)
     @JvmField val MANGLELIE = register("manglelie", { t, l -> ManglelieEntity(t, l) }, MobCategory.AMBIENT, 0.6f, 1.8f, 4, true)
+    @JvmField val KOBOLD_EGG_PROJECTILE = register("kobold_egg_projectile", { t, l -> KoboldEggProjectileEntity(t, l) }, MobCategory.MISC, 0.25f, 0.25f, 4, true)
     @JvmField val CUSTOM_MODEL = register("custom_model", { t, l -> SexSceneEntity(t, l) }, MobCategory.MISC, 0.6f, 1.8f, 4, true)
 
     // ---- player-form girls (1.12 registerEntity: 100 blocks, no velocity updates) ----

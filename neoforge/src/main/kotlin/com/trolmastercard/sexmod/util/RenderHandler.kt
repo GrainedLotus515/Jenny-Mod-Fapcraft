@@ -52,6 +52,7 @@ object RenderHandler {
         event.registerEntityRenderer<BaseGirlEntity>(ModEntities.LUNA.get()) { ctx -> LunaRenderer(ctx, CatNpcModel(), -0.4) }
         event.registerEntityRenderer(ModEntities.GOBLIN.get()) { ctx -> GoblinRenderer(ctx, GoblinNpcModel(), -0.6) }
         event.registerEntityRenderer(ModEntities.GALATH.get()) { ctx -> GalathRenderer(ctx, GalathNpcModel(), -0.05) }
+        event.registerEntityRenderer(ModEntities.KOBOLD_EGG_PROJECTILE.get()) { ctx -> net.minecraft.client.renderer.entity.ThrownItemRenderer(ctx) }
         event.registerEntityRenderer(ModEntities.KOBOLD_EGG.get()) { ctx -> KoboldEggRenderer(ctx, KoboldEggModel()) }
         event.registerEntityRenderer(ModEntities.MANGLELIE.get()) { ctx -> ManglelieRenderer(ctx, ManglelieNpcModel(), -0.05) }
         event.registerEntityRenderer<BaseGirlEntity>(ModEntities.PLAYER_BIA.get()) { ctx -> PlayerBiaRenderer(ctx, BiaNpcModel()) }

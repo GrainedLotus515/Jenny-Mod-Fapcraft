@@ -65,6 +65,9 @@ neoForge {
 dependencies {
     implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
     implementation "software.bernie.geckolib:geckolib-neoforge-${minecraft_version}:${geckolib_version}"
+    implementation "io.github.realburst:unrar5j:v2.0.4"
+    additionalRuntimeClasspath "io.github.realburst:unrar5j:v2.0.4"
+    jarJar("io.github.realburst:unrar5j") { version { strictly "[v2.0.4]"; prefer "v2.0.4" } }
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 
