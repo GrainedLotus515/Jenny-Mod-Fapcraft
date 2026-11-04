@@ -175,6 +175,7 @@ open class GirlInventoryScreen : Screen {
      */
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks)
+        val focusIndex = WidgetFocus.focusedIndex(this)
         this.clearWidgets()
         val screenWidth = guiGraphics.guiWidth()
         val screenHeight = guiGraphics.guiHeight()
@@ -217,6 +218,7 @@ open class GirlInventoryScreen : Screen {
         if (this.isReady) {
             this.drawGirlPreview(guiGraphics, mouseX, mouseY)
         }
+        WidgetFocus.restore(this, focusIndex)
     }
 
     private fun equipment(key: EntityDataAccessor<ItemStack>): ItemStack =

@@ -323,7 +323,7 @@ open class ClothingScreen(girl: BaseGirlEntity) : Screen(Component.empty()) {
     }
 
     open fun onBoneTypeToggle(boneType: BoneType, forward: Boolean, clickIndex: Int) {
-        Main.LOGGER.info(String.format("[DEBUG toggle] bone=%s forward=%s clickIndex=%d partsCount=%d mSize=%d", boneType, forward, clickIndex, this.partsCount, customPartEntries.size))
+        Main.LOGGER.debug(String.format("[toggle] bone=%s forward=%s clickIndex=%d partsCount=%d mSize=%d", boneType, forward, clickIndex, this.partsCount, customPartEntries.size))
         val mc = Minecraft.getInstance()
         mc.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0f))
         val matches = ArrayList<MutableMap.MutableEntry<BoneType, MutableMap.MutableEntry<MutableList<String>, Int>>>()
@@ -370,8 +370,7 @@ open class ClothingScreen(girl: BaseGirlEntity) : Screen(Component.empty()) {
                 currentIndex = partCount - 1
             }
             val nextName = data.key[currentIndex]
-            Main.LOGGER.info(String.format("[DEBUG toggle result] bone=%s %s -> %s (idx %d->%d/%d)", boneType, prevName, nextName, data.value, currentIndex, partCount))
-            mc.player?.sendSystemMessage(Component.literal(String.format("§e%s: %s -> %s", boneType, prevName, nextName)))
+            Main.LOGGER.debug(String.format("[toggle result] bone=%s %s -> %s (idx %d->%d/%d)", boneType, prevName, nextName, data.value, currentIndex, partCount))
             customPartEntries[index] = SimpleEntry(entry.key, SimpleEntry(entry.value.key, currentIndex))
             // Re-sync previewGirl.customPartsData with customPartEntries's GIRL_SPECIFIC entries.
             // customPartEntries.set above replaced one entry with a NEW object; rebuilding

@@ -33,6 +33,12 @@ open class GirlAnimationController<T : GeoAnimatable>(
     @JvmField
     var lastSeekTime = 0.0
 
+    init {
+        // GL3 ignored sound keyframes on controllers without a listener; GL4 logs a warning for
+        // every one. Only the action controller gets the girl's real listener, as in 1.12.
+        setSoundKeyframeHandler { }
+    }
+
     /** GL3 `GirlAnimationController(animatable, name, ticks, EasingType, predicate)`. */
     constructor(
         animatable: T,

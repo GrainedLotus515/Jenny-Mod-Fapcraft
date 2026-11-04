@@ -324,8 +324,15 @@ open class ReskinBrowserScreen : Screen {
                 }
             }
             "Remove" -> {
+                // remove the selected applied pack; with no selection, the top of the stack
                 val st = appliedStack()
-                if (st.isNotEmpty()) revertRow(st[0]) else status = "Nothing applied."
+                if (st.isNotEmpty()) {
+                    val idx = if (selectedStack in st.indices) selectedStack else 0
+                    revertRow(st[idx])
+                    selectedStack = -1
+                } else {
+                    status = "Nothing applied."
+                }
             }
             "Revert All" -> status = manager.revertAll()
             "Legacy" -> openLegacy()

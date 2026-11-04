@@ -74,12 +74,17 @@ open class GirlScreenBase(modelCodes: HashMap<NpcType, String>) : Screen(Compone
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks)
+        val focusIndex = WidgetFocus.focusedIndex(this)
         this.clearWidgets()
-        if (this.nearbyEntities.isEmpty()) return
+        if (this.nearbyEntities.isEmpty()) {
+            WidgetFocus.restore(this, focusIndex)
+            return
+        }
         renderEntityPreview(guiGraphics, this.width / 2, this.height / 2 + 20, 30, this.nearbyEntities[this.renderIndex])
         this.addRenderableWidget(Button.builder(Component.literal(">")) { this.actionPerformed(1, ">") }.bounds(this.width / 2 + 30, this.height / 2 - 10, 20, 20).build())
         this.addRenderableWidget(Button.builder(Component.literal("<")) { this.actionPerformed(2, "<") }.bounds(this.width / 2 - 50, this.height / 2 - 10, 20, 20).build())
         this.addRenderableWidget(Button.builder(Component.literal("pick")) { this.actionPerformed(0, "pick") }.bounds(this.width / 2 - 30, this.height / 2 + 30, 60, 20).build())
+        WidgetFocus.restore(this, focusIndex)
     }
 
     /**

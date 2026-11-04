@@ -59,6 +59,7 @@ open class BeeDialogueScreen(bee: BeeEntityBase, player: Player) : Screen(Compon
      */
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTicks: Float) {
         super.render(guiGraphics, mouseX, mouseY, partialTicks)
+        val focusIndex = WidgetFocus.focusedIndex(this)
         this.clearWidgets()
         val screenWidth = guiGraphics.guiWidth()
         this.animProgress = Math.min(1.0, this.animProgress + Minecraft.getInstance().timer.gameTimeDeltaTicks / 5.0f)
@@ -81,6 +82,7 @@ open class BeeDialogueScreen(bee: BeeEntityBase, player: Player) : Screen(Compon
                 .build()
         )
         guiGraphics.blit(GUI_TEXTURE, screenWidth / 2 - 20, 20, if (this.beeEntity.getEntityData().get(BeeEntityBase.HORNY_FLAG)) 0 else 40, 130, 40, 40)
+        WidgetFocus.restore(this, focusIndex)
     }
 
     /**

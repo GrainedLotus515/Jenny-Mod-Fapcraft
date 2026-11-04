@@ -77,6 +77,9 @@ These are the open items from PORT_NOTES, plus code paths no one has run.
 - [ ] 1.8 Player-form solo actions: as Jenny, Ellie, Luna and Bia, sneak + right-click a bed (see 14.6-14.9). → Each starts its bed action.
 - [ ] 1.9 (Optional, needs a 2nd player) Player-form scene request/accept (see 19.3). → Scene plays between the two players.
 - [ ] 1.10 Allies Lamp → any wish → let Allie finish → press R-Shift. → Client not dimmed, chat opens. (This failed before the GIRL_ID fix; re-check it.)
+- [ ] 1.11 Watch a kobold for a few minutes, and a Galath and a Manglelie through a scene. → Kobold eyes stay put; Galath's hair and Manglelie's skirt don't creep further each frame. (Fixed: offsets used to accumulate.)
+- [ ] 1.12 Play several scenes, especially Goblin (most affected), Jenny, Slime, Ellie, Galath, Luna payment. → No limbs snapping to wild angles for a frame or two. (Fixed: constant-expression rotations were applied in radians.)
+- [ ] 1.13 In a girl menu, press Tab a few times, then Enter. → The highlight moves between buttons and Enter presses the highlighted one.
 
 ---
 
@@ -312,7 +315,7 @@ Run `/time set day` first. The tribe stops working after the first nightfall unt
 
 - [ ] 14.1 Brew: Water bottle + Redstone → Mundane Potion. Add a Poppy. → Potion of horny. (Also in the vanilla Food & Drinks tab.)
 - [ ] 14.2 Drink it. → Nausea. About 5 s later the picker opens with `<`, `>`, `pick`. Order: Jenny, Ellie, Bia, Slime, Bee, Allie, Luna, Kobold, Goblin, Galath, then your own player. Manglelie is not listed.
-- [ ] 14.3 Effect icon in the inventory while it's active. → Expect a missing (purple/black) icon. (known bug? no texture shipped)
+- [ ] 14.3 Effect icon in the inventory and top-right HUD while it's active. → The vanilla Speed boot icon, as in 1.12.
 - [ ] 14.4 Transform into **each** form in turn (drink again each time). → You see the form's model (third person F5), animations play, your armour shows on it, and swinging plays an attack animation.
 - [ ] 14.5 For each form: open your inventory (E). → Jenny, Ellie, Bia, Slime and Galath have a Strip / Dress up button that works. Others have no button.
 - [ ] 14.6 As Jenny: sneak + right-click a bed. → She gets into doggy position on the bed and waits.

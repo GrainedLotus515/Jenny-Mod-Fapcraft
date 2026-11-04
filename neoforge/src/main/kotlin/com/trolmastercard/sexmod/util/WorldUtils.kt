@@ -230,9 +230,10 @@ object WorldUtils {
 
     /**
      * Players that can see `entity`. 1.12 asked the `EntityTracker` for the
-     * entity's tracking players; 1.21 keeps that set private, so this returns
-     * the players watching the entity's chunk (the same set the entity tracker
-     * draws from, minus the per-entity tracking range).
+     * entity's tracking players; 1.21 keeps that set private, so this applies the
+     * same test as `ChunkMap.TrackedEntity.updatePlayer`: the player watches the
+     * entity's chunk, is within the entity type's (scaled) tracking range capped
+     * by the view distance, and the entity broadcasts to them.
      */
     @JvmStatic
     fun getNearbyPlayers(entity: Entity?): Set<Player> {
@@ -241,7 +242,18 @@ object WorldUtils {
         }
         val server = ServerLifecycleHooks.getCurrentServer() ?: return emptySet()
         val level = server.getLevel(entity.level().dimension()) ?: return emptySet()
-        return level.chunkSource.chunkMap.getPlayers(ChunkPos(entity.blockPosition()), false).toSet()
+        val range = Math.min(
+            server.getScaledTrackingDistance(entity.type.clientTrackingRange() * 16),
+            server.playerList.viewDistance * 16,
+        ).toDouble()
+        val pos = entity.position()
+        return level.chunkSource.chunkMap.getPlayers(ChunkPos(entity.blockPosition()), false)
+            .filter { player ->
+                val dx = player.x - pos.x
+                val dz = player.z - pos.z
+                dx * dx + dz * dz <= range * range && entity.broadcastToPlayer(player)
+            }
+            .toSet()
     }
 
     /**

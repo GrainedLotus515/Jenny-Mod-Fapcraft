@@ -18,6 +18,13 @@ import com.trolmastercard.sexmod.util.SoundHandler
 import net.minecraft.client.KeyMapping
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.screens.MenuScreens
+import net.minecraft.client.gui.Gui
+import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.screens.inventory.EffectRenderingInventoryScreen
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
+import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions
+import com.trolmastercard.sexmod.registry.ModEffects
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.resources.ResourceLocation
@@ -109,6 +116,28 @@ class ClientProxy : CommonProxy() {
                 }, item)
             }
         }
+
+        // 1.12 drew the horny effect with icon index (0, 0) of the vanilla status sheet, the Speed icon.
+        event.registerMobEffect(object : IClientMobEffectExtensions {
+            override fun renderInventoryIcon(
+                instance: MobEffectInstance, screen: EffectRenderingInventoryScreen<*>, guiGraphics: GuiGraphics,
+                x: Int, y: Int, blitOffset: Int,
+            ): Boolean {
+                guiGraphics.blit(x, y + 7, blitOffset, 18, 18, speedIcon())
+                return true
+            }
+
+            override fun renderGuiIcon(
+                instance: MobEffectInstance, gui: Gui, guiGraphics: GuiGraphics, x: Int, y: Int, z: Float, alpha: Float,
+            ): Boolean {
+                guiGraphics.setColor(1.0f, 1.0f, 1.0f, alpha)
+                guiGraphics.blit(x + 3, y + 3, 0, 18, 18, speedIcon())
+                guiGraphics.setColor(1.0f, 1.0f, 1.0f, 1.0f)
+                return true
+            }
+
+            private fun speedIcon() = Minecraft.getInstance().mobEffectTextures.get(MobEffects.MOVEMENT_SPEED)
+        }, ModEffects.HORNY_POTION.get())
     }
 
     private fun onClientSetup(event: FMLClientSetupEvent) {

@@ -24,6 +24,7 @@ import net.neoforged.neoforge.event.level.ChunkEvent
 import net.neoforged.neoforge.event.level.LevelEvent
 import net.neoforged.neoforge.event.tick.LevelTickEvent
 import java.util.Random
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.ConcurrentLinkedQueue
 
 /**
@@ -56,6 +57,9 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
     /** Newly generated chunks waiting for [generate] (filled on chunk load, drained on the level tick). */
     private val pendingChunks = ConcurrentLinkedQueue<ChunkPos>()
 
+    /** New chunks that unloaded before their 3x3 area was loaded; re-queued when they load again. Saved. */
+    private val deferredChunks: MutableSet<Long> = ConcurrentHashMap.newKeySet()
+
     constructor(name: String) : this()
 
     init {
@@ -86,6 +90,7 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
     open fun clear() {
         this.generatedPositions.clear()
         this.pendingChunks.clear()
+        this.deferredChunks.clear()
     }
 
     @SubscribeEvent
@@ -104,16 +109,15 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
     /** 1.21 replacement of `IWorldGenerator` registration: remember newly generated overworld chunks. */
     @SubscribeEvent
     open fun onChunkLoad(event: ChunkEvent.Load) {
-        if (!event.isNewChunk) {
-            return
-        }
-
         val level = event.level as? ServerLevel ?: return
         if (level.dimension() != Level.OVERWORLD) {
             return
         }
 
-        this.pendingChunks.add(event.chunk.pos)
+        val pos = event.chunk.pos
+        if (event.isNewChunk || this.deferredChunks.remove(pos.toLong())) {
+            this.pendingChunks.add(pos)
+        }
     }
 
     /** Runs the queued chunk generation on the server thread after the overworld tick. */
@@ -126,13 +130,15 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
 
         // The house/lair checks read blocks up to one chunk outside the new chunk. Running them
         // before the neighbours exist forced synchronous chunk generation on the server thread
-        // (multi-second stalls while exploring), so wait until the 3x3 area is loaded, give up
-        // on chunks that unloaded again, and spread the work over ticks.
+        // (multi-second stalls while exploring), so wait until the 3x3 area is loaded, park
+        // chunks that unloaded again until they load next time, and spread the work over ticks.
         var processed = 0
         var remaining = this.pendingChunks.size
         while (remaining-- > 0 && processed < MAX_CHUNKS_PER_TICK) {
             val chunk = this.pendingChunks.poll() ?: break
             if (!level.hasChunk(chunk.x, chunk.z)) {
+                this.deferredChunks.add(chunk.toLong())
+                this.setDirty()
                 continue
             }
 
@@ -163,6 +169,23 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
         }
     }
 
+    /** Pending and deferred chunks survive a restart; on load they wait in [deferredChunks] until loaded. */
+    private fun readPendingChunks(tag: CompoundTag) {
+        this.deferredChunks.clear()
+        for (packed in tag.getLongArray("sexmod:pendingChunks")) {
+            this.deferredChunks.add(packed)
+        }
+    }
+
+    private fun writePendingChunks(tag: CompoundTag) {
+        val all = LinkedHashSet<Long>(this.deferredChunks)
+        for (chunk in this.pendingChunks) {
+            all.add(chunk.toLong())
+        }
+
+        tag.putLongArray("sexmod:pendingChunks", all.toLongArray())
+    }
+
     open fun writeToNBT(tag: CompoundTag): CompoundTag {
         tag.put("sexmod:generation", CompoundTag())
         val generation = CompoundTag()
@@ -175,6 +198,7 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
         }
 
         tag.put("sexmod:generation", generation)
+        this.writePendingChunks(tag)
         return tag
     }
 
@@ -419,6 +443,7 @@ open class ConfigWorldGenHandler private constructor() : SavedData() {
         fun load(tag: CompoundTag, registries: HolderLookup.Provider): ConfigWorldGenHandler {
             val data = getInstance()
             data.readFromNBT(tag)
+            data.readPendingChunks(tag)
             return data
         }
 
