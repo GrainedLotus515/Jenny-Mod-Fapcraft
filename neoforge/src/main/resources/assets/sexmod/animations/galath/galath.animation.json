@@ -1039,7 +1039,7 @@
 							"vector": [0, 0, 0]
 						},
 						"0.5": {
-							"vector": ["50+.", 0, 0],
+							"vector": ["50", 0, 0],
 							"easing": "easeInOutSine"
 						},
 						"1.0": {

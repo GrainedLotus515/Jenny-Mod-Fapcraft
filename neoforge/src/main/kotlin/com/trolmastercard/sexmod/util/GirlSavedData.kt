@@ -139,6 +139,9 @@ open class GirlSavedData : SavedData {
 
     override fun save(tag: CompoundTag, registries: HolderLookup.Provider): CompoundTag = this.writeToNBT(tag)
 
+    /** I/O shell over static state: always dirty so every overworld data save writes the statics (LevelEvent.Save fires after the data storage is flushed). */
+    override fun isDirty(): Boolean = true
+
     companion object {
         @JvmField
         var debugEnabled: Boolean = true

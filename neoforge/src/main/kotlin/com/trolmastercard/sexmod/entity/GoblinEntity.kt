@@ -686,10 +686,6 @@ class GoblinEntity : AbstractNpcOnlyEntity, IGoblin {
         @JvmStatic
         fun openGoblinPadForPlayer(playerUuid: UUID?): Boolean = GoblinInteractions.openGoblinPadForPlayer(playerUuid)
 
-        /** Compatibility overload for the 1.12 `(Minecraft, UUID)` call site; the first argument is ignored. */
-        @JvmStatic
-        fun openGoblinPadForPlayer(mc: Any?, playerUuid: UUID?): Boolean = GoblinInteractions.openGoblinPadForPlayer(playerUuid)
-
         @JvmStatic
         fun hasGoblinWithUUID(uuid: UUID?): Boolean = GoblinInteractions.hasGoblinWithUUID(uuid)
 

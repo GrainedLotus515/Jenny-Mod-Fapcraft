@@ -40,6 +40,10 @@ neoForge {
     runs {
         client {
             client()
+            // dev convenience: ./gradlew runClient -PquickPlay=localhost:25565 joins a server directly
+            if (project.hasProperty('quickPlay')) {
+                programArguments.addAll('--quickPlayMultiplayer', project.property('quickPlay').toString())
+            }
         }
         server {
             server()

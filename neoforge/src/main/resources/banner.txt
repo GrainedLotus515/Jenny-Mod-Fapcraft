@@ -1,10 +1,10 @@
 ==============================================
-  Fapcraft 1.12.2 (sexmod) — v1.1.0
+  Fapcraft (sexmod) for NeoForge 1.21.1 — v2.0.0-alpha
   Reverse engineered in Kurdistan <3
 ==============================================
-Deobfuscated, decompiled and remapped reconstruction
+Kotlin port of the deobfuscated reconstruction
 of the official Fapcraft mod for Minecraft 1.12.2.
-Build: SRG-reobfuscated + shaded (GeckoLib bundled).
+Build: NeoForge 1.21.1 + Kotlin for Forge, GeckoLib 4 (separate mod).
 
 Certified by real Java developers.
 Biji Kurdistan - Long live Kurdistan.

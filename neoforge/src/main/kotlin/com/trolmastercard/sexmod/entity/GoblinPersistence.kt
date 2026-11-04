@@ -47,10 +47,13 @@ object GoblinPersistence {
     fun read(goblin: GoblinEntity, nbt: CompoundTag) {
         val data = goblin.getEntityData()
         goblin.isQueen = nbt.getBoolean("isQueen")
+        // 1.21 /summon loads an empty tag into a fresh entity before finalizeSpawn; keep the
+        // constructor defaults instead of parsing a missing model code.
+        if (!nbt.contains("model")) return
         data.set(AbstractNpcOnlyEntity.APPEARANCE_DNA, nbt.getString("model"))
         data.set(AbstractNpcOnlyEntity.CURRENT_ACTION, nbt.getString("bodyColor"))
         val parts = AbstractNpcOnlyEntity.getModelCodeParts(goblin)
-        if (parts[3].toInt() > 7 || parts[4].toInt() > 7) {
+        if (parts.size > 4 && ((parts[3].toIntOrNull() ?: 0) > 7 || (parts[4].toIntOrNull() ?: 0) > 7)) {
             data.set(AbstractNpcOnlyEntity.APPEARANCE_DNA, goblin.buildModelCodeDNA(StringBuilder(), goblin.getModelPartIndex()))
             Main.LOGGER.info("updated an old Goblin")
         }

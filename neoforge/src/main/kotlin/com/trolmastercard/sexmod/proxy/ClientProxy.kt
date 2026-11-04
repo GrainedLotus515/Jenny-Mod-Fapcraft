@@ -51,6 +51,8 @@ import software.bernie.geckolib.animatable.client.GeoRenderProvider
  */
 class ClientProxy : CommonProxy() {
     override fun construct(bus: IEventBus) {
+        // GeckoLib 4 rejects unknown Molang variables at parse time; register them before the first reload
+        com.trolmastercard.sexmod.util.MolangVars.registerAll()
         bus.addListener(RegisterKeyMappingsEvent::class.java) { e -> onRegisterKeyMappings(e) }
         bus.addListener(EntityRenderersEvent.RegisterRenderers::class.java) { e -> RenderHandler.register(e) }
         bus.addListener(RegisterMenuScreensEvent::class.java) { e -> onRegisterMenuScreens(e) }

@@ -98,7 +98,7 @@ object ModEntities {
     @JvmField val GALATH = register("galath", { t, l -> GalathEntity(t, l) }, MobCategory.CREATURE, 0.6f, 1.8f, 4, true)
     @JvmField val MANGLELIE = register("manglelie", { t, l -> ManglelieEntity(t, l) }, MobCategory.AMBIENT, 0.6f, 1.8f, 4, true)
     @JvmField val KOBOLD_EGG_PROJECTILE = register("kobold_egg_projectile", { t, l -> KoboldEggProjectileEntity(t, l) }, MobCategory.MISC, 0.25f, 0.25f, 4, true)
-    @JvmField val CUSTOM_MODEL = register("custom_model", { t, l -> SexSceneEntity(t, l) }, MobCategory.MISC, 0.6f, 1.8f, 4, true)
+    @JvmField val CUSTOM_MODEL = register("custom_model", { t, l -> SexSceneEntity(t, l) }, MobCategory.MISC, 0.1f, 0.1f, 4, true)
 
     // ---- player-form girls (1.12 registerEntity: 100 blocks, no velocity updates) ----
     @JvmField val PLAYER_JENNY = register("player_jenny", { t, l -> JennyPlayerEntity(t, l) }, MobCategory.MISC, 0.01f, 0.01f, 7, false)

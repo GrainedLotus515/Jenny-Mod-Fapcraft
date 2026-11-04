@@ -251,6 +251,8 @@ abstract class GirlModel<T : BaseGirlEntity> protected constructor() : GirlModel
      * legs/boots) — used by the renderer's armor tinting.
      */
     open fun getItemStackForBone(girl: BaseGirlEntity, boneName: String): ItemStack {
+        // the armour keys only exist on NPC girls (Galath/Manglelie/player forms would throw)
+        if (girl !is AbstractGirlNpcEntity) return ItemStack.EMPTY
         return if (Arrays.asList(*this.HeadArmor()).contains(boneName)) {
             girl.entityDataManager.get(AbstractGirlNpcEntity.HELMET_SLOT)
         } else if (Arrays.asList(*this.TopArmor()).contains(boneName)) {

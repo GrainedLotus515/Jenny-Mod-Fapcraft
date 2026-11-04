@@ -58,6 +58,9 @@ open class GirlWorldData : SavedData {
 
     override fun save(tag: CompoundTag, registries: HolderLookup.Provider): CompoundTag = this.writeToNBT(tag)
 
+    /** I/O shell over static state: always dirty so every overworld data save writes the statics (LevelEvent.Save fires after the data storage is flushed). */
+    override fun isDirty(): Boolean = true
+
     open fun serializeOwnership(ownershipMap: HashMap<UUID, String>): CompoundTag {
         val tag = CompoundTag()
         var i = 0

@@ -1,6 +1,8 @@
 package com.trolmastercard.sexmod.client.model
 
 import java.util.concurrent.ConcurrentHashMap
+import com.trolmastercard.sexmod.reskin.ReskinManager
+import com.trolmastercard.sexmod.util.ModelResources
 import net.minecraft.resources.ResourceLocation
 import software.bernie.geckolib.animatable.GeoAnimatable
 import software.bernie.geckolib.animation.Animation
@@ -38,7 +40,7 @@ abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoMod
      * cache. Re-binds the animation processor whenever the active model changes.
      */
     override fun getBakedModel(location: ResourceLocation): BakedGeoModel {
-        val custom = CUSTOM_BAKED_MODELS[location]
+        val custom = findCustomModel(location)
         if (custom != null) {
             if (custom !== this.activeCustomModel) {
                 this.animationProcessor.setActiveModel(custom)
@@ -60,7 +62,8 @@ abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoMod
 
     /** Runtime animations (custom models) first, then GeckoLib's cache. */
     override fun getAnimation(animatable: T, name: String): Animation? {
-        val custom = CUSTOM_ANIMATIONS[this.getAnimationResource(animatable)]
+        val animationResource = this.getAnimationResource(animatable)
+        val custom = CUSTOM_ANIMATIONS[animationResource] ?: ReskinManager.getAnimationOverride(animationResource)
         if (custom != null) {
             val animation = custom.getAnimation(name)
             if (animation != null) {
@@ -87,7 +90,17 @@ abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoMod
                 return false
             }
 
-            return CUSTOM_BAKED_MODELS.containsKey(location) || GeckoLibCache.getBakedModels().containsKey(location)
+            return findCustomModel(location) != null || GeckoLibCache.getBakedModels().containsKey(location)
         }
+
+        /**
+         * Runtime geo model for `location`: this map, then active reskins ([ReskinManager]),
+         * then server/custom models ([ModelResources]).
+         */
+        @JvmStatic
+        fun findCustomModel(location: ResourceLocation): BakedGeoModel? =
+            CUSTOM_BAKED_MODELS[location]
+                ?: ReskinManager.getGeoOverride(location)
+                ?: ModelResources.getCustomBakedModel(location)
     }
 }
