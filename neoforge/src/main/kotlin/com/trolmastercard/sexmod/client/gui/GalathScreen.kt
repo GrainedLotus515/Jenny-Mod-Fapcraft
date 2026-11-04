@@ -113,7 +113,7 @@ open class GalathScreen(target: BaseGirlEntity) : Screen(Component.empty()) {
     override fun keyReleased(keyCode: Int, scanCode: Int, modifiers: Int): Boolean {
         val padToggle = ClientProxy.keyBindings[0].matches(keyCode, scanCode) || ClientProxy.keyBindings[2].matches(keyCode, scanCode)
         if (padToggle) {
-            Minecraft.getInstance().player?.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
             return true
         }
         return super.keyReleased(keyCode, scanCode, modifiers)

@@ -100,7 +100,7 @@ open class GirlScreenBase(modelCodes: HashMap<NpcType, String>) : Screen(Compone
         if (buttonId == 0) {
             PacketHandler.networkWrapper.sendToServer(UpdatePlayerModelPacket(NpcType.getNpcType(this.nearbyEntities[this.renderIndex])))
             val player = Minecraft.getInstance().player ?: return
-            player.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
             // 1.12 player.eyeHeight = getDefaultEyeHeight(): eye height comes from the dimensions in 1.21
             player.refreshDimensions()
             if (!player.abilities.mayfly) {

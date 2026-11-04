@@ -62,7 +62,7 @@ open class TribeNameScreen(@JvmField var koboldId: UUID) : Screen(Component.lite
         if (name.isNotEmpty()) {
             val player = Minecraft.getInstance().player ?: return
             PacketHandler.networkWrapper.sendToServer(ClaimTribePacket(this.koboldId, player.uuid, name))
-            player.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
         }
     }
 }

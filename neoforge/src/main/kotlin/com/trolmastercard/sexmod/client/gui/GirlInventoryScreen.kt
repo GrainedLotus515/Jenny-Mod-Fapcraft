@@ -164,7 +164,7 @@ open class GirlInventoryScreen : Screen {
         }
 
         this.girl.doAction(actionName, this.player.uuid)
-        Minecraft.getInstance().player?.closeContainer()
+        net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
     }
 
     /**

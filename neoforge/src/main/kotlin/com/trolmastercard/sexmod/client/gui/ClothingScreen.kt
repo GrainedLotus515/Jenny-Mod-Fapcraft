@@ -319,7 +319,7 @@ open class ClothingScreen(girl: BaseGirlEntity) : Screen(Component.empty()) {
         }
 
         PacketHandler.networkWrapper.sendToServer(UploadModelStringPacket(BaseGirlEntity.encodeCustomParts(selectedParts), this.girlId, girlSpecific))
-        mc.player?.closeContainer()
+        net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
     }
 
     open fun onBoneTypeToggle(boneType: BoneType, forward: Boolean, clickIndex: Int) {
@@ -436,7 +436,7 @@ open class ClothingScreen(girl: BaseGirlEntity) : Screen(Component.empty()) {
                 y = this.guiY - 40
                 if (this.isMouseOverPart(mouseX, mouseY, x, y, x + 20, y + 20)) {
                     mc.soundManager.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0f))
-                    mc.player?.closeContainer()
+                    net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
                     val modelCount = ServerWhitelistManager.getModelCount(true)
                     if (modelCount != 0) {
                         ServerWhitelistManager.isGlobalRenderingDisabled = true

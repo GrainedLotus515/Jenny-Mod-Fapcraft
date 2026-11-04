@@ -116,17 +116,17 @@ open class BeeDialogueScreen(bee: BeeEntityBase, player: Player) : Screen(Compon
             }
 
             this.isFollowMode = !this.isFollowMode
-            this.player.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
         }
 
         if (buttonId == 1) {
             PacketHandler.networkWrapper.sendToServer(SendCompanionHomePacket(this.beeEntity.getGirlId()))
-            this.player.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
         }
 
         if (buttonId == 2) {
             PacketHandler.networkWrapper.sendToServer(SetNewHomePacket(this.beeEntity.getGirlId(), Vec3(this.beeEntity.x, this.beeEntity.y, this.beeEntity.z)))
-            this.player.closeContainer()
+            net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
             this.player.sendSystemMessage(Component.literal(I18n.get("bee.dialogue.home")))
         }
     }

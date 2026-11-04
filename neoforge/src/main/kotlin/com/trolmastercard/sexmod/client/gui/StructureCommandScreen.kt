@@ -341,7 +341,7 @@ open class StructureCommandScreen : Screen(Component.empty()) {
      * command ([removed]).
      */
     override fun mouseReleased(mouseX: Double, mouseY: Double, mouseButton: Int): Boolean {
-        Minecraft.getInstance().player?.closeContainer()
+        net.minecraft.client.Minecraft.getInstance().setScreen(null) // client-only screen: a container-close packet would close a menu the server just opened
         return super.mouseReleased(mouseX, mouseY, mouseButton)
     }
 

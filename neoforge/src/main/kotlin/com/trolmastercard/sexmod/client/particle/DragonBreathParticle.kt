@@ -34,8 +34,10 @@ open class DragonBreathParticle(world: ClientLevel, x: Double, y: Double, z: Dou
         private val names = arrayOf("generic_5", "generic_6", "generic_7")
 
         private fun sprites(): List<TextureAtlasSprite> {
-            val atlas = Minecraft.getInstance().getTextureAtlas(TextureAtlas.LOCATION_PARTICLES)
-            return names.map { atlas.apply(ResourceLocation.withDefaultNamespace(it)) }
+            // the particle atlas belongs to the particle engine, not the model manager
+            // (Minecraft.getTextureAtlas(LOCATION_PARTICLES) throws)
+            val atlas = Minecraft.getInstance().textureManager.getTexture(TextureAtlas.LOCATION_PARTICLES) as TextureAtlas
+            return names.map { atlas.getSprite(ResourceLocation.withDefaultNamespace(it)) }
         }
 
         override fun get(age: Int, lifetime: Int): TextureAtlasSprite {
