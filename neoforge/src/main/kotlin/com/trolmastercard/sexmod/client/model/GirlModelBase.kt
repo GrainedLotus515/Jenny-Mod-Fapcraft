@@ -73,6 +73,12 @@ abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoMod
             bone.resetStateChanges()
         }
 
+        // GL4 skips the whole pass (controllers and setCustomAnimations) when the same instance is drawn
+        // again at the same frame time. GL3 ran it for every draw, and the mod's second passes rely on
+        // that: the first-person goblin / player-girl / POV passes pose and hide bones differently from
+        // the normal entity pass. Forgetting the last update time makes GL4 run it; the animation time
+        // does not advance, so the controllers land on the same frame.
+        animatable.animatableInstanceCache.getManagerForId<T>(instanceId).updatedAt(Double.NaN)
         super.handleAnimations(animatable, instanceId, animationState, partialTick)
     }
 

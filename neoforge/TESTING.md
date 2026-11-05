@@ -274,7 +274,8 @@ The lamp has 3 wishes per item. The tooltip shows "2 wishes left", "1 wish left"
 
 - [ ] 12.1 Right-click a spawned goblin. → She is picked up and sits on your shoulder. During the pick-up both of her eyes show (see 1.16).
 - [ ] 12.2 Right-click a second goblin while carrying one. → "you are already carrying a Goblin".
-- [ ] 12.3 Hold **G** with the goblin on your shoulder. → Pad appears. Move the mouse to the left half, release G. → She is thrown where you aim, lands and stands up.
+- [ ] 12.3 Hold **G** with the goblin on your shoulder. → Pad appears. Move the mouse to the left half, release G. → In first person your arms wind up (empty hands, per the 1.12 code), she appears in your hand at the release and flies off where you aim; she lands and stands up. One goblin only, and none left hanging in front of the camera. (Fixed: the first-person pass reused the wrong bone visibility.)
+- [ ] 12.3a Same throw in third person (F5). → Your body does the throw and she flies off. With an offline/dev account the body uses the Steve skin.
 - [ ] 12.4 Thrown goblin: right-click her again. → Picked up again.
 - [ ] 12.5 Hold G → right-upper area → release. → PAIZURI scene. Sneak = fast. Finish works.
 - [ ] 12.6 Hold G → right-lower area → release. → NELSON scene to the end. Afterwards the camera stays in third-person front (expected; press F5 to fix it).
