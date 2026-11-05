@@ -15,7 +15,7 @@ Install all of these, on both the client and the server:
 | Mod | Version |
 |---|---|
 | Minecraft | 1.21.1 |
-| [NeoForge](https://neoforged.net/) | 21.1.265 or newer |
+| [NeoForge](https://neoforged.net/) | any 1.21.1 build from 21.1.150 on (GeckoLib's own minimum) |
 | [Kotlin for Forge](https://modrinth.com/mod/kotlin-for-forge) | 5.12.0 or newer (NeoForge build) |
 | [GeckoLib](https://modrinth.com/mod/geckolib) | 4.9.3 or newer (NeoForge 1.21.1 build) |
 

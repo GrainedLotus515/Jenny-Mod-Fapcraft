@@ -229,8 +229,9 @@ object WorldUtils {
 
     /**
      * Players that can see `entity`: 1.12 `EntityTracker.getTrackingPlayers`.
-     * NeoForge's `ChunkMap.getPlayersWatching` returns the entity tracker's
-     * `seenBy` set (per-player view distance, passengers and tracking state included).
+     * Reads the entity tracker's `seenBy` set (per-player view distance, passengers and
+     * tracking state included). `ChunkMap.getPlayersWatching` does the same but only exists
+     * in newer 21.1 builds, so the tracker is opened up in `accesstransformer.cfg` instead.
      */
     @JvmStatic
     fun getNearbyPlayers(entity: Entity?): Set<Player> {
@@ -239,7 +240,8 @@ object WorldUtils {
         }
         val server = ServerLifecycleHooks.getCurrentServer() ?: return emptySet()
         val level = server.getLevel(entity.level().dimension()) ?: return emptySet()
-        return level.chunkSource.chunkMap.getPlayersWatching(entity).toSet()
+        val tracked = level.chunkSource.chunkMap.entityMap.get(entity.id) ?: return emptySet()
+        return tracked.seenBy.mapTo(HashSet()) { it.player }
     }
 
     /**

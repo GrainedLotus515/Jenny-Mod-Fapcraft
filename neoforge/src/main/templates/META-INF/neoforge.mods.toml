@@ -3,6 +3,9 @@ loaderVersion="[5,)"
 license="${mod_license}"
 issueTrackerURL="https://github.com/ReverseEngineeringEnthusiasts/Jenny-Mod-Fapcraft/issues"
 
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
 [[mods]]
 modId="${mod_id}"
 version="${mod_version}"
@@ -16,7 +19,7 @@ Fapcraft, ported from Forge 1.12.2 to NeoForge 1.21.1 and Kotlin. Strictly 18+.
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="[${neo_version},)"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="BOTH"
 

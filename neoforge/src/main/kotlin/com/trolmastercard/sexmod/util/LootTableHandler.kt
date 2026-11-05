@@ -51,7 +51,7 @@ object LootTableHandler {
 
         @SubscribeEvent
         fun onLootTableLoad(event: LootTableLoadEvent) {
-            if (CHEST_TABLES.contains(event.key)) {
+            if (CHEST_TABLES.any { it.location() == event.name }) {
                 var pool: LootPool? = event.table.getPool("pool3")
                 if (pool == null) {
                     pool = event.table.getPool("pool2")
