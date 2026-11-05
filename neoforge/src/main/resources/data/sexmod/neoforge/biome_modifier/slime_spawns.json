@@ -1,0 +1,10 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": "minecraft:swamp",
+  "spawners": {
+    "type": "sexmod:slime",
+    "weight": 10,
+    "minCount": 1,
+    "maxCount": 1
+  }
+}

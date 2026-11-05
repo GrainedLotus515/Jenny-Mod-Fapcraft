@@ -1,0 +1,128 @@
+package com.trolmastercard.sexmod.client.model
+
+import java.util.concurrent.ConcurrentHashMap
+import com.trolmastercard.sexmod.reskin.ReskinManager
+import com.trolmastercard.sexmod.util.ModelResources
+import net.minecraft.resources.ResourceLocation
+import software.bernie.geckolib.animatable.GeoAnimatable
+import software.bernie.geckolib.animation.Animation
+import software.bernie.geckolib.animation.AnimationState
+import software.bernie.geckolib.cache.GeckoLibCache
+import software.bernie.geckolib.cache.`object`.BakedGeoModel
+import software.bernie.geckolib.loading.`object`.BakedAnimations
+import software.bernie.geckolib.model.GeoModel
+
+/**
+ * Base class for geckolib girl models.
+ *
+ * In 1.12 this class swapped in the caching `GirlAnimationProcessor` by
+ * reflection and re-registered every top-level bone after each model load so
+ * the name-based bone cache stayed correct. GeckoLib 4's
+ * `AnimationProcessor` already maps bones by name and re-registers them in
+ * `setActiveModel`, so that part is gone (`GirlAnimationProcessor` is DROPPED,
+ * PORTING.md §2.8).
+ *
+ * **Custom models.** The 1.12 mod injected runtime (custom/reskin) geo models and
+ * animations straight into `GeckoLibCache`. GeckoLib 4 rebuilds its caches on
+ * every resource reload, so the mod keeps its own maps here instead
+ * ([CUSTOM_BAKED_MODELS], [CUSTOM_ANIMATIONS]); [getBakedModel] and [getAnimation]
+ * consult them before GeckoLib's caches. The custom-model loaders
+ * (`ReskinManager`, `ModelArchive`, `ModelResources`) write into these maps.
+ *
+ * CLIENT-side only. [getBakedModel] throws when the geo file is missing — model
+ * files must exist.
+ */
+abstract class GirlModelBase<T : GeoAnimatable> protected constructor() : GeoModel<T>() {
+    /** The custom model last handed to the processor (GeckoLib's own tracking only sees its cache). */
+    private var activeCustomModel: BakedGeoModel? = null
+
+    /**
+     * Loads the baked geo model: the mod's runtime models first, then GeckoLib's
+     * cache. Re-binds the animation processor whenever the active model changes.
+     */
+    override fun getBakedModel(location: ResourceLocation): BakedGeoModel {
+        val custom = findCustomModel(location)
+        if (custom != null) {
+            if (custom !== this.activeCustomModel) {
+                this.animationProcessor.setActiveModel(custom)
+                this.activeCustomModel = custom
+            }
+
+            return custom
+        }
+
+        val model = super.getBakedModel(location)
+        if (this.activeCustomModel != null) {
+            // switching back from a runtime model: GeckoLib still thinks its last model is active
+            this.animationProcessor.setActiveModel(model)
+            this.activeCustomModel = null
+        }
+
+        return model
+    }
+
+    /**
+     * GL3 reset every bone channel the current animation does not key back to the rest pose on each
+     * tick, so the mod's per-frame hooks (eye spacing, hair tilt, skirt lift, head sway...) could add
+     * offsets to the bone's current value. GL4 skips that reset for channels marked changed, and the
+     * hooks mark them again after every tick, so the offsets accumulated (kobold eyes drifting apart).
+     * Clearing the markers first restores the GL3 reset; channels the animation keys are unaffected.
+     */
+    override fun handleAnimations(animatable: T, instanceId: Long, animationState: AnimationState<T>, partialTick: Float) {
+        for (bone in this.animationProcessor.registeredBones) {
+            bone.resetStateChanges()
+        }
+
+        // GL4 skips the whole pass (controllers and setCustomAnimations) when the same instance is drawn
+        // again at the same frame time. GL3 ran it for every draw, and the mod's second passes rely on
+        // that: the first-person goblin / player-girl / POV passes pose and hide bones differently from
+        // the normal entity pass. Forgetting the last update time makes GL4 run it; the animation time
+        // does not advance, so the controllers land on the same frame.
+        animatable.animatableInstanceCache.getManagerForId<T>(instanceId).updatedAt(Double.NaN)
+        super.handleAnimations(animatable, instanceId, animationState, partialTick)
+    }
+
+    /** Runtime animations (custom models) first, then GeckoLib's cache. */
+    override fun getAnimation(animatable: T, name: String): Animation? {
+        val animationResource = this.getAnimationResource(animatable)
+        val custom = CUSTOM_ANIMATIONS[animationResource] ?: ReskinManager.getAnimationOverride(animationResource)
+        if (custom != null) {
+            val animation = custom.getAnimation(name)
+            if (animation != null) {
+                return animation
+            }
+        }
+
+        return super.getAnimation(animatable, name)
+    }
+
+    companion object {
+        /** Runtime geo models keyed by resource location (custom models / reskins). */
+        @JvmField
+        val CUSTOM_BAKED_MODELS: MutableMap<ResourceLocation, BakedGeoModel> = ConcurrentHashMap()
+
+        /** Runtime animation files keyed by resource location (custom models / reskins). */
+        @JvmField
+        val CUSTOM_ANIMATIONS: MutableMap<ResourceLocation, BakedAnimations> = ConcurrentHashMap()
+
+        /** Whether a geo model is available for `location` (runtime map or GeckoLib cache). */
+        @JvmStatic
+        fun hasBakedModel(location: ResourceLocation?): Boolean {
+            if (location == null) {
+                return false
+            }
+
+            return findCustomModel(location) != null || GeckoLibCache.getBakedModels().containsKey(location)
+        }
+
+        /**
+         * Runtime geo model for `location`: this map, then active reskins ([ReskinManager]),
+         * then server/custom models ([ModelResources]).
+         */
+        @JvmStatic
+        fun findCustomModel(location: ResourceLocation): BakedGeoModel? =
+            CUSTOM_BAKED_MODELS[location]
+                ?: ReskinManager.getGeoOverride(location)
+                ?: ModelResources.getCustomBakedModel(location)
+    }
+}

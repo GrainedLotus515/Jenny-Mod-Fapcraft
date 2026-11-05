@@ -1,0 +1,1031 @@
+{
+  "bones": 253,
+  "cubes": 2759,
+  "per_bone_cube_counts": {
+    "rotationTool": {
+      "original": 0,
+      "exported": 0
+    },
+    "body": {
+      "original": 0,
+      "exported": 0
+    },
+    "upperBody": {
+      "original": 0,
+      "exported": 0
+    },
+    "hip": {
+      "original": 3,
+      "exported": 3
+    },
+    "sideR": {
+      "original": 0,
+      "exported": 0
+    },
+    "bone7": {
+      "original": 6,
+      "exported": 6
+    },
+    "bone2": {
+      "original": 9,
+      "exported": 9
+    },
+    "sideL": {
+      "original": 0,
+      "exported": 0
+    },
+    "bone8": {
+      "original": 6,
+      "exported": 6
+    },
+    "bone9": {
+      "original": 8,
+      "exported": 8
+    },
+    "booty": {
+      "original": 0,
+      "exported": 0
+    },
+    "cheekL": {
+      "original": 123,
+      "exported": 123
+    },
+    "bone3": {
+      "original": 6,
+      "exported": 6
+    },
+    "bone": {
+      "original": 2,
+      "exported": 2
+    },
+    "cheekR": {
+      "original": 123,
+      "exported": 123
+    },
+    "bone4": {
+      "original": 6,
+      "exported": 6
+    },
+    "bone5": {
+      "original": 2,
+      "exported": 2
+    },
+    "futa": {
+      "original": 0,
+      "exported": 0
+    },
+    "futaBallLR": {
+      "original": 73,
+      "exported": 73
+    },
+    "futaBallLL": {
+      "original": 73,
+      "exported": 73
+    },
+    "futaCock": {
+      "original": 357,
+      "exported": 357
+    },
+    "cockParticles": {
+      "original": 0,
+      "exported": 0
+    },
+    "futaCockTip": {
+      "original": 0,
+      "exported": 0
+    },
+    "futaCockTipDirHelp": {
+      "original": 0,
+      "exported": 0
+    },
+    "bone56": {
+      "original": 0,
+      "exported": 0
+    },
+    "bone32": {
+      "original": 0,
+      "exported": 0
+    },
+    "vagina": {
+      "original": 0,
+      "exported": 0
+    },
+    "main": {
+      "original": 14,
+      "exported": 14
+    },
+    "Lside": {
+      "original": 46,
+      "exported": 46
+    },
+    "Rside": {
+      "original": 46,
+      "exported": 46
+    },
+    "slip": {
+      "original": 1,
+      "exported": 1
+    },
+    "turnable": {
+      "original": 13,
+      "exported": 13
+    },
+    "slipL": {
+      "original": 0,
+      "exported": 0
+    },
+    "slipR": {
+      "original": 0,
+      "exported": 0
+    },
+    "static": {
+      "original": 0,
+      "exported": 0
+    },
+    "back": {
+      "original": 10,
+      "exported": 10
+    },
+    "slipFront": {
+      "original": 16,
+      "exported": 16
+    },
+    "fuckhole": {
+      "original": 81,
+      "exported": 81
+    },
+    "creampiePos": {
+      "original": 0,
+      "exported": 0
+    },
+    "torso": {
+      "original": 1,
+      "exported": 1
+    },
+    "wings": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingR": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingRjoint": {
+      "original": 9,
+      "exported": 9
+    },
+    "wingRV0": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRbranch": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingRV4": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV1": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV3": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV2": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingR2": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingR2joint": {
+      "original": 9,
+      "exported": 9
+    },
+    "wingRbranch2": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingRV8": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV5": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV7": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV6": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingR3": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingRV13": {
+      "original": 0,
+      "exported": 0
+    },
+    "winR3branch": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingRV9": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV12": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV10": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingRV11": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingL": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLjoint": {
+      "original": 9,
+      "exported": 9
+    },
+    "wingLV0": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLbranch": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLV4": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV1": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV3": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV2": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingL2": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLjoint2": {
+      "original": 9,
+      "exported": 9
+    },
+    "wingLbranch2": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLV8": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV5": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV7": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV6": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingL3": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLV13": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLbranch3": {
+      "original": 1,
+      "exported": 1
+    },
+    "wingLV9": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV12": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV10": {
+      "original": 0,
+      "exported": 0
+    },
+    "wingLV11": {
+      "original": 0,
+      "exported": 0
+    },
+    "boobs": {
+      "original": 0,
+      "exported": 0
+    },
+    "boobL": {
+      "original": 84,
+      "exported": 84
+    },
+    "boobL1": {
+      "original": 72,
+      "exported": 72
+    },
+    "boobL2": {
+      "original": 132,
+      "exported": 132
+    },
+    "boobRHair8": {
+      "original": 2,
+      "exported": 2
+    },
+    "hairStrandEndL": {
+      "original": 0,
+      "exported": 0
+    },
+    "nippleL": {
+      "original": 6,
+      "exported": 6
+    },
+    "braStringMidMid3L": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidMid2L": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidMid1L": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidStartL": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringRightL": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringLeftStartL": {
+      "original": 0,
+      "exported": 0
+    },
+    "braBoobL": {
+      "original": 41,
+      "exported": 41
+    },
+    "armorNippleL": {
+      "original": 6,
+      "exported": 6
+    },
+    "boobR": {
+      "original": 84,
+      "exported": 84
+    },
+    "boobR1": {
+      "original": 72,
+      "exported": 72
+    },
+    "boobR2": {
+      "original": 132,
+      "exported": 132
+    },
+    "nippleR": {
+      "original": 6,
+      "exported": 6
+    },
+    "boobRHair": {
+      "original": 2,
+      "exported": 2
+    },
+    "hairStrandEndR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidMid3R": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidMid2R": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidMid1R": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidStartR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringRightR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringRightStartR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braBoobR": {
+      "original": 41,
+      "exported": 41
+    },
+    "armorNippleR": {
+      "original": 6,
+      "exported": 6
+    },
+    "upperBodyR": {
+      "original": 2,
+      "exported": 2
+    },
+    "upperBodyL": {
+      "original": 2,
+      "exported": 2
+    },
+    "armR": {
+      "original": 1,
+      "exported": 1
+    },
+    "lowerArmR": {
+      "original": 1,
+      "exported": 1
+    },
+    "weapon": {
+      "original": 0,
+      "exported": 0
+    },
+    "weaponStart": {
+      "original": 0,
+      "exported": 0
+    },
+    "energyBallR": {
+      "original": 0,
+      "exported": 0
+    },
+    "weaponEnd": {
+      "original": 0,
+      "exported": 0
+    },
+    "customHandR": {
+      "original": 0,
+      "exported": 0
+    },
+    "ellbow": {
+      "original": 0,
+      "exported": 0
+    },
+    "bSideL3": {
+      "original": 8,
+      "exported": 8
+    },
+    "fSideL3": {
+      "original": 8,
+      "exported": 8
+    },
+    "armL": {
+      "original": 1,
+      "exported": 1
+    },
+    "lowerArmL": {
+      "original": 1,
+      "exported": 1
+    },
+    "offhand": {
+      "original": 0,
+      "exported": 0
+    },
+    "energyBallL": {
+      "original": 0,
+      "exported": 0
+    },
+    "customHandL": {
+      "original": 0,
+      "exported": 0
+    },
+    "ellbowL": {
+      "original": 0,
+      "exported": 0
+    },
+    "bSideL2": {
+      "original": 8,
+      "exported": 8
+    },
+    "fSideL2": {
+      "original": 8,
+      "exported": 8
+    },
+    "hipbend": {
+      "original": 4,
+      "exported": 4
+    },
+    "neck": {
+      "original": 1,
+      "exported": 1
+    },
+    "hairStrandMidL": {
+      "original": 0,
+      "exported": 0
+    },
+    "hairStrandMidR": {
+      "original": 0,
+      "exported": 0
+    },
+    "hairStrandStartL": {
+      "original": 0,
+      "exported": 0
+    },
+    "hairStrandStartR": {
+      "original": 0,
+      "exported": 0
+    },
+    "stars": {
+      "original": 0,
+      "exported": 0
+    },
+    "head": {
+      "original": 1,
+      "exported": 1
+    },
+    "tongue": {
+      "original": 0,
+      "exported": 0
+    },
+    "mangPos": {
+      "original": 0,
+      "exported": 0
+    },
+    "earR": {
+      "original": 4,
+      "exported": 4
+    },
+    "earL": {
+      "original": 4,
+      "exported": 4
+    },
+    "hair": {
+      "original": 0,
+      "exported": 0
+    },
+    "front": {
+      "original": 18,
+      "exported": 18
+    },
+    "hairDownSideL": {
+      "original": 3,
+      "exported": 3
+    },
+    "hairDownSideR": {
+      "original": 3,
+      "exported": 3
+    },
+    "hairSideR": {
+      "original": 14,
+      "exported": 14
+    },
+    "hairSideL": {
+      "original": 15,
+      "exported": 15
+    },
+    "hairSideL2": {
+      "original": 16,
+      "exported": 16
+    },
+    "hairSideL3": {
+      "original": 16,
+      "exported": 16
+    },
+    "hairBack": {
+      "original": 10,
+      "exported": 10
+    },
+    "glasses": {
+      "original": 1,
+      "exported": 1
+    },
+    "customHead": {
+      "original": 0,
+      "exported": 0
+    },
+    "blush": {
+      "original": 1,
+      "exported": 1
+    },
+    "heart": {
+      "original": 1,
+      "exported": 1
+    },
+    "eyes": {
+      "original": 0,
+      "exported": 0
+    },
+    "eyeL": {
+      "original": 0,
+      "exported": 0
+    },
+    "browL": {
+      "original": 1,
+      "exported": 1
+    },
+    "closedL": {
+      "original": 1,
+      "exported": 1
+    },
+    "closedLashL": {
+      "original": 5,
+      "exported": 5
+    },
+    "openL": {
+      "original": 0,
+      "exported": 0
+    },
+    "lashL": {
+      "original": 5,
+      "exported": 5
+    },
+    "innerLashL": {
+      "original": 1,
+      "exported": 1
+    },
+    "outerLashL": {
+      "original": 1,
+      "exported": 1
+    },
+    "innerEyeL": {
+      "original": 0,
+      "exported": 0
+    },
+    "irisL": {
+      "original": 0,
+      "exported": 0
+    },
+    "irsisFaceL": {
+      "original": 2,
+      "exported": 2
+    },
+    "whiteSpotL": {
+      "original": 1,
+      "exported": 1
+    },
+    "whiteL": {
+      "original": 1,
+      "exported": 1
+    },
+    "eyeR": {
+      "original": 0,
+      "exported": 0
+    },
+    "browR": {
+      "original": 1,
+      "exported": 1
+    },
+    "closedR": {
+      "original": 1,
+      "exported": 1
+    },
+    "closedLashR": {
+      "original": 5,
+      "exported": 5
+    },
+    "openR": {
+      "original": 0,
+      "exported": 0
+    },
+    "lashR": {
+      "original": 5,
+      "exported": 5
+    },
+    "innerLashR": {
+      "original": 1,
+      "exported": 1
+    },
+    "outerLashR": {
+      "original": 1,
+      "exported": 1
+    },
+    "innerEyeR": {
+      "original": 0,
+      "exported": 0
+    },
+    "irisR": {
+      "original": 0,
+      "exported": 0
+    },
+    "irsisFaceR": {
+      "original": 2,
+      "exported": 2
+    },
+    "whiteSpotR": {
+      "original": 1,
+      "exported": 1
+    },
+    "whiteR": {
+      "original": 1,
+      "exported": 1
+    },
+    "girlCam": {
+      "original": 0,
+      "exported": 0
+    },
+    "horns": {
+      "original": 0,
+      "exported": 0
+    },
+    "hornL": {
+      "original": 6,
+      "exported": 6
+    },
+    "hornR": {
+      "original": 6,
+      "exported": 6
+    },
+    "mouth": {
+      "original": 0,
+      "exported": 0
+    },
+    "wideSmugSmile2": {
+      "original": 1,
+      "exported": 1
+    },
+    "ouf": {
+      "original": 1,
+      "exported": 1
+    },
+    "cum": {
+      "original": 1,
+      "exported": 1
+    },
+    "mouthThingDown": {
+      "original": 1,
+      "exported": 1
+    },
+    "worryed": {
+      "original": 1,
+      "exported": 1
+    },
+    "normalSmile": {
+      "original": 1,
+      "exported": 1
+    },
+    "tongueSmile2": {
+      "original": 1,
+      "exported": 1
+    },
+    "suprisedPikatchu": {
+      "original": 1,
+      "exported": 1
+    },
+    "tongueSmile": {
+      "original": 1,
+      "exported": 1
+    },
+    "armorHelmet": {
+      "original": 1,
+      "exported": 1
+    },
+    "braStringRightEndR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringLeftEndL": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidEndR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringMidEndL": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringBackR": {
+      "original": 0,
+      "exported": 0
+    },
+    "braStringBackL": {
+      "original": 0,
+      "exported": 0
+    },
+    "legL": {
+      "original": 1,
+      "exported": 1
+    },
+    "sockL": {
+      "original": 1,
+      "exported": 1
+    },
+    "shinL": {
+      "original": 1,
+      "exported": 1
+    },
+    "customShoeL": {
+      "original": 0,
+      "exported": 0
+    },
+    "curvesL": {
+      "original": 18,
+      "exported": 18
+    },
+    "kneeL": {
+      "original": 15,
+      "exported": 15
+    },
+    "legR": {
+      "original": 1,
+      "exported": 1
+    },
+    "shinR": {
+      "original": 1,
+      "exported": 1
+    },
+    "customShoeR": {
+      "original": 0,
+      "exported": 0
+    },
+    "sockR": {
+      "original": 1,
+      "exported": 1
+    },
+    "curvesR": {
+      "original": 18,
+      "exported": 18
+    },
+    "kneeR": {
+      "original": 15,
+      "exported": 15
+    },
+    "coin": {
+      "original": 22,
+      "exported": 22
+    },
+    "pentagram": {
+      "original": 27,
+      "exported": 27
+    },
+    "steve": {
+      "original": 0,
+      "exported": 0
+    },
+    "Torso2": {
+      "original": 0,
+      "exported": 0
+    },
+    "blocks": {
+      "original": 2,
+      "exported": 2
+    },
+    "Head2": {
+      "original": 2,
+      "exported": 2
+    },
+    "boyCam": {
+      "original": 0,
+      "exported": 0
+    },
+    "cock": {
+      "original": 357,
+      "exported": 357
+    },
+    "bone123": {
+      "original": 0,
+      "exported": 0
+    },
+    "bone99": {
+      "original": 0,
+      "exported": 0
+    },
+    "ballL": {
+      "original": 73,
+      "exported": 73
+    },
+    "ballR": {
+      "original": 73,
+      "exported": 73
+    },
+    "LeftArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "LeftLowerArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "leftLowerArmAlex": {
+      "original": 2,
+      "exported": 2
+    },
+    "leftLowerArmSteve": {
+      "original": 2,
+      "exported": 2
+    },
+    "steveLeftArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "leftArmAlex": {
+      "original": 26,
+      "exported": 26
+    },
+    "leftArmSteve": {
+      "original": 26,
+      "exported": 26
+    },
+    "RightArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "RightLowerArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "rightLowerArmAlex": {
+      "original": 2,
+      "exported": 2
+    },
+    "rightLowerArmSteve": {
+      "original": 2,
+      "exported": 2
+    },
+    "steveRightArm": {
+      "original": 0,
+      "exported": 0
+    },
+    "rightArmAlex": {
+      "original": 26,
+      "exported": 26
+    },
+    "rightArmSteve": {
+      "original": 26,
+      "exported": 26
+    },
+    "RightLeg": {
+      "original": 2,
+      "exported": 2
+    },
+    "kneeR2": {
+      "original": 10,
+      "exported": 10
+    },
+    "bone6": {
+      "original": 11,
+      "exported": 11
+    },
+    "shinR2": {
+      "original": 2,
+      "exported": 2
+    },
+    "LeftLeg": {
+      "original": 2,
+      "exported": 2
+    },
+    "kneeR3": {
+      "original": 10,
+      "exported": 10
+    },
+    "bone13": {
+      "original": 11,
+      "exported": 11
+    },
+    "shinL2": {
+      "original": 2,
+      "exported": 2
+    }
+  },
+  "max_errors": {
+    "origin_pixels": 1.8603515599124876e-06,
+    "size_pixels": 2.2888183597302714e-06,
+    "pivot_pixels": 1.5258789076710855e-06,
+    "rotation_degrees": 6.812060860283964e-06,
+    "uv_pixels": 4.999999999999796e-06,
+    "cube_corner_pixels": 4.262361182227892e-06,
+    "bone_pivot_pixels": 1.5258789076710855e-06,
+    "bone_rotation_degrees": 6.507797110089086e-06,
+    "world_corner_pixels": 3.798485906258975e-06
+  },
+  "tolerance": 0.0001,
+  "pass": true
+}

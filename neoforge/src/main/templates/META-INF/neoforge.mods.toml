@@ -1,0 +1,45 @@
+modLoader="kotlinforforge"
+loaderVersion="[5,)"
+license="${mod_license}"
+issueTrackerURL="https://github.com/ReverseEngineeringEnthusiasts/Jenny-Mod-Fapcraft/issues"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
+
+[[mods]]
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+authors="Trolmastercard"
+logoFile="logo.png"
+description='''
+Fapcraft, ported from Forge 1.12.2 to NeoForge 1.21.1 and Kotlin. Strictly 18+.
+'''
+
+[[dependencies.${mod_id}]]
+    modId="neoforge"
+    type="required"
+    versionRange="${neo_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="minecraft"
+    type="required"
+    versionRange="${minecraft_version_range}"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="kotlinforforge"
+    type="required"
+    versionRange="[${kff_version},)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.${mod_id}]]
+    modId="geckolib"
+    type="required"
+    versionRange="[${geckolib_version},)"
+    ordering="AFTER"
+    side="BOTH"

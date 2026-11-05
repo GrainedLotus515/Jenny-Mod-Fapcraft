@@ -1,0 +1,23 @@
+{
+  "geometry.1.12.0.schema.json": {
+    "source": "https://raw.githubusercontent.com/bedrock-studio/bedrock-json-schemas/master/geometry.1.12.0.json",
+    "vendored_sha256": "e883ff371eb02d3c8e310d4d6e15fcf7f6970f5feebabbbe14a0f2e935b08f01"
+  },
+  "meta.json": {
+    "source": "https://raw.githubusercontent.com/bedrock-studio/bedrock-json-schemas/master/meta.json",
+    "vendored_sha256": "1110af87e778f3096049b6fcb5d95f9392d69c856b5868e7495836f05d9b1091"
+  },
+  "schema-LICENSE": {
+    "source": "https://raw.githubusercontent.com/bedrock-studio/bedrock-json-schemas/master/LICENSE.md",
+    "vendored_sha256": "21ba3d1a51daf9caf5fd080e895e188ff373d107e539db02f9150fa633d94ea8"
+  },
+  "blockbench-parseCube.js": {
+    "source": "https://raw.githubusercontent.com/JannisX11/blockbench/v4.12.6/js/io/formats/bedrock.js",
+    "vendored_sha256": "e68eb8418d57dad121fda379884504683bbd078f8879505f10369ad7ee425ad5",
+    "note": "parseCube function excerpt with trailing whitespace normalized, with provenance comment and CommonJS export appended. Full upstream file SHA256: e83dd484b0065546e3ef5878ee51e5bcc77c883f66ab8be7a44d5d63786771eb"
+  },
+  "blockbench-LICENSE": {
+    "source": "https://raw.githubusercontent.com/JannisX11/blockbench/v4.12.6/LICENSE.MD",
+    "vendored_sha256": "8b1ba204bb69a0ade2bfcf65ef294a920f6bb361b317dba43c7ef29d96332b9b"
+  }
+}

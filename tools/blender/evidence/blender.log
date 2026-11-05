@@ -1,0 +1,9 @@
+/home/lotus/.t3/worktrees/Jenny-Mod-Fapcraft/t3-a66e82d9/tools/blender/prove.py:17: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mat=bpy.data.materials.new('Asymmetric UV checker'); mat.use_nodes=True
+00:03.464  render           | Saved: '/home/lotus/.t3/worktrees/Jenny-Mod-Fapcraft/t3-a66e82d9/tools/blender/evidence/source-blender.png'
+Info: Saved as "galath-roundtrip.blend"
+ROUNDTRIP 253 bones 2759 mesh objects
+Info: Saved as "curved_shell.blend"
+Blender 5.2.3 LTS
+
+Blender quit

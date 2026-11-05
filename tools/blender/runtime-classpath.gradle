@@ -1,0 +1,11 @@
+// Read-only probe support; does not change the mod's source sets or packaged resources.
+allprojects {
+    afterEvaluate {
+        tasks.register('blenderProbeClasspath') {
+            dependsOn tasks.named('classes')
+            doLast {
+                file("$buildDir/blender-runtime-classpath.txt").text = sourceSets.main.runtimeClasspath.asPath
+            }
+        }
+    }
+}
