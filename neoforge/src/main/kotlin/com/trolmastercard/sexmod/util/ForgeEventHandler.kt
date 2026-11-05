@@ -3,6 +3,7 @@ package com.trolmastercard.sexmod.util
 import com.trolmastercard.sexmod.PositionData
 import com.trolmastercard.sexmod.client.GirlCameraHelper
 import com.trolmastercard.sexmod.client.SexSceneKeyHandler
+import com.trolmastercard.sexmod.client.WorldLastDepthState
 import com.trolmastercard.sexmod.client.gui.BeeScreen
 import com.trolmastercard.sexmod.client.gui.ClothingScreen
 import com.trolmastercard.sexmod.client.gui.EscapeMinigameHud
@@ -117,6 +118,7 @@ object ForgeEventHandler {
                 DebugWindow2.isVisible = false
             }
 
+            bus.register(WorldLastDepthState())
             bus.register(HornyMeterHud())
             bus.register(BeeScreen())
             bus.register(HandlePlayerMovement())
