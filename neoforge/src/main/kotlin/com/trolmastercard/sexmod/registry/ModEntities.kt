@@ -86,7 +86,7 @@ object ModEntities {
 
     // ---- NPC girls (1.12 registerSpawnEntity / registerEggEntity, 50 blocks) ----
     @JvmField val JENNY = register("jenny", { t, l -> JennyEntity(t, l) }, MobCategory.CREATURE, 0.49f, 1.95f, 4, true)
-    @JvmField val ELLIE = register("ellie", { t, l -> EllieEntity(t, l) }, MobCategory.CREATURE, 0.6f, 1.8f, 4, true)
+    @JvmField val ELLIE = register("ellie", { t, l -> EllieEntity(t, l) }, MobCategory.CREATURE, 0.6f, 2.3f, 4, true)
     @JvmField val SLIME = register("slime", { t, l -> SlimeEntity(t, l) }, MobCategory.CREATURE, 0.6f, 1.8f, 4, true)
     @JvmField val BIA = register("bia", { t, l -> BiaEntity(t, l) }, MobCategory.CREATURE, 0.49f, 1.65f, 4, true)
     @JvmField val BEE = register("bee", { t, l -> BeeEntity(t, l) }, MobCategory.CREATURE, 0.3f, 1.5f, 4, true)
@@ -95,7 +95,7 @@ object ModEntities {
     @JvmField val KOBOLD = register("kobold", { t, l -> KoboldEntity(t, l) }, MobCategory.CREATURE, 0.5f, 0.99f, 4, true)
     @JvmField val KOBOLD_EGG = register("kobold_egg", { t, l -> KoboldEggEntity(t, l) }, MobCategory.MISC, 0.5f, 0.5f, 4, true)
     @JvmField val GOBLIN = register("goblin", { t, l -> GoblinEntity(t, l) }, MobCategory.CREATURE, 0.5f, 0.99f, 4, true)
-    @JvmField val GALATH = register("galath", { t, l -> GalathEntity(t, l) }, MobCategory.CREATURE, 0.6f, 1.8f, 4, true)
+    @JvmField val GALATH = register("galath", { t, l -> GalathEntity(t, l) }, MobCategory.CREATURE, 0.6f, 2.1f, 4, true)
     @JvmField val MANGLELIE = register("manglelie", { t, l -> ManglelieEntity(t, l) }, MobCategory.AMBIENT, 0.6f, 1.8f, 4, true)
     @JvmField val KOBOLD_EGG_PROJECTILE = register("kobold_egg_projectile", { t, l -> KoboldEggProjectileEntity(t, l) }, MobCategory.MISC, 0.25f, 0.25f, 4, true)
     @JvmField val CUSTOM_MODEL = register("custom_model", { t, l -> SexSceneEntity(t, l) }, MobCategory.MISC, 0.1f, 0.1f, 4, true)
