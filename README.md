@@ -1,6 +1,51 @@
-# Jenny Mod / Fapcraft 1.12.2 Remapped + Deobfuscated
+# Jenny Mod / Fapcraft: NeoForge 1.21.1 port (Kotlin)
+
+> **You are on the `1.21.1` branch.** This branch holds the port of the mod to Minecraft **1.21.1** (NeoForge, Kotlin, GeckoLib 4). It is an **alpha**: everything is ported, but a lot is still untested in game.
+>
+> Looking for the original **1.12.2** Forge mod? It lives on the [`master`](../../tree/master) branch. The two versions are kept on separate branches for good and are never merged.
 
 Warning: This is an 18+ project (Adults Only!)
+
+## 1.21.1 port
+
+### What you need to play
+
+Install all of these, on both the client and the server:
+
+| Mod | Version |
+|---|---|
+| Minecraft | 1.21.1 |
+| [NeoForge](https://neoforged.net/) | 21.1.265 or newer |
+| [Kotlin for Forge](https://modrinth.com/mod/kotlin-for-forge) | 5.12.0 or newer (NeoForge build) |
+| [GeckoLib](https://modrinth.com/mod/geckolib) | 4.9.3 or newer (NeoForge 1.21.1 build) |
+
+Then drop `fapcraft-1.21.1-<version>.jar` into your `mods` folder.
+
+### Where things are
+
+- `neoforge/`: the port. Kotlin source is in `neoforge/src/main/kotlin/com/trolmastercard/sexmod/`.
+- `src/main/java/`: the original 1.12.2 source, kept here as the reference the port was made from. It is **not** part of the 1.21.1 build.
+- [`neoforge/TESTING.md`](neoforge/TESTING.md): the manual test checklist. Start here if you want to help test.
+- [`neoforge/PORT_NOTES.md`](neoforge/PORT_NOTES.md): every place the port differs from 1.12.2 and why, plus fixed bugs.
+- [`neoforge/PORTING.md`](neoforge/PORTING.md): how the port is structured.
+- [`neoforge/ASSET_RENAMES.md`](neoforge/ASSET_RENAMES.md): asset changes made for 1.21.
+
+### Building
+
+You need JDK 21. On Nix, `nix develop` sets everything up (including the libraries the game needs to launch).
+
+```sh
+cd neoforge
+./gradlew build       # jar ends up in neoforge/build/libs/
+./gradlew runClient   # start a dev client with the mod
+./gradlew runServer   # start a dev server with the mod
+```
+
+---
+
+# About the original 1.12.2 remap
+
+Everything below is the original README for the 1.12.2 version. The download and install steps in it are for **1.12.2**, not for this branch.
 
 ### Why?
 
