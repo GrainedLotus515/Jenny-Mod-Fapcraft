@@ -295,7 +295,7 @@ Run `/time set day` first. The tribe stops working after the first nightfall unt
 
 - [ ] 13.1 `/give @s sexmod:tribe_egg`, right-click the ground. → 4 kobolds spawn, one with a crown (leader). All have the same colour.
 - [ ] 13.2 `/give @s sexmod:dragon_staff` (or craft: end crystal / gold block / stick in a vertical column). Right-click air before you own a tribe. → Nothing.
-- [ ] 13.3 Right-click a tribe kobold with the staff. → "Name Tribe" screen with a text box (max 15 characters) and a "set" button. An empty name does nothing.
+- [ ] 13.3 Right-click a tribe kobold with the staff. → "Name Tribe" screen with a text box (max 15 characters) and a "set" button. You can type straight away without clicking the box. An empty name does nothing. (Fixed: typing only worked after clicking the box.)
 - [ ] 13.4 Enter a name, click set. → Chat to everyone: "<you> formed the <name> Tribe" in the tribe colour. Kobolds follow you.
 - [ ] 13.5 Right-click air with the staff (now that you own a tribe). → Radial icon menu, no text. Hold right-click, drag to a quadrant, release.
 - [ ] 13.6 Top-left quadrant. → Toggles follow mode (kobolds stop or start following). Note: Esc also commits the highlighted quadrant.

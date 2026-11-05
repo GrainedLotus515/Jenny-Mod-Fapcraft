@@ -28,7 +28,6 @@ open class TribeNameScreen(@JvmField var koboldId: UUID) : Screen(Component.lite
     override fun init() {
         super.init()
         val field = EditBox(this.font, this.width / 2 - 50, this.height / 2 - 10, 100, 20, Component.empty())
-        field.isFocused = true
         // 1.12 keyTyped: clamps the tribe name to 15 characters while typing
         field.setResponder { text ->
             if (text.length > 15) {
@@ -37,12 +36,22 @@ open class TribeNameScreen(@JvmField var koboldId: UUID) : Screen(Component.lite
         }
         this.nameField = field
         this.addRenderableWidget(field)
-        this.setInitialFocus(field)
         this.addRenderableWidget(
             Button.builder(Component.literal("set")) { button -> this.actionPerformed(button) }
                 .bounds(this.width / 2 - 25, this.height / 2 + 20, 50, 20)
                 .build()
         )
+    }
+
+    /**
+     * 1.12 `nameField.setFocused(true)`. The focus has to go through the screen: a field that
+     * only marks itself focused draws its cursor but gets no key or character events, and the
+     * screen then refuses to focus it ("already focused"), so nothing could be typed until the
+     * field was clicked.
+     */
+    override fun setInitialFocus() {
+        val field = this.nameField ?: return
+        this.setInitialFocus(field)
     }
 
     override fun renderBackground(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
