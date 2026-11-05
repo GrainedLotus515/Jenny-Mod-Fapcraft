@@ -132,6 +132,21 @@ def uv_rect(obj,face,tw,th):
 
 
 def export_geo(path):
+    # Blender keeps live Edit Mode data in a separate BMesh, and its regular
+    # UV arrays can remain inaccessible even after update_from_editmode().
+    # Switch temporarily so both geometry and UV reads see the current edits.
+    editing = bpy.context.object
+    restore_edit = editing is not None and editing.mode == 'EDIT'
+    if restore_edit:
+        bpy.ops.object.mode_set(mode='OBJECT')
+    try:
+        return _export_geo(path)
+    finally:
+        if restore_edit:
+            bpy.ops.object.mode_set(mode='EDIT')
+
+
+def _export_geo(path):
     bpy.context.view_layer.update()
     r = root()
     rigs = [o for o in r.children if o.type == 'ARMATURE']

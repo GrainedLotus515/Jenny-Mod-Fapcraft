@@ -44,5 +44,11 @@
     "runtime-classpath.gradle": "3fd6a851248c626b3a63bae094c83a141ec1588c6e97028ac0415a02be339abd",
     "validate.py": "4db36e4a0fac653b1dd4dfd25cce2cea6c195f7723054300cdb9b5f9431c190b",
     "verify.sh": "ea27a3e57269c37edf062f7e9966a986551ee2d439da7f4711fb49abc64625fd"
+  },
+  "edit_mode_export_regression": {
+    "script_sha256": "09f2cf028528b24c4242436ce6199b431a9ac678c18df3e12f26b8dafbe2d9bc",
+    "exporter_sha256": "579eb90b1780b9d27515381ede7675a2fbcb735d7e9284a4e4d7405eac5049d7",
+    "log_sha256": "d33d84508ef35baf60aeb6a22bb17789eb6f016a35bb31f2152f79364cd13666",
+    "note": "Follow-up regression; the original artifact-generation hashes above remain unchanged."
   }
 }

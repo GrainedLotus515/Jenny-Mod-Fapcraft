@@ -34,6 +34,7 @@ Open `evidence/curved_shell.blend` for the editable source. Its texture is packe
 - `evidence/exported-independent.png`: Python/NumPy/Pillow software-rasterized render from only exported JSON, PNG and camera parameters. It imports no Blender APIs or exporter code and reconstructs X reflection, cube rotations, parented bone transforms and UV sampling independently.
 - `evidence/render-comparison.json`: **0.999409 silhouette intersection-over-union**; **0.50970/255 mean RGB error** over 68,579 interior pixels; 99th percentile channel error 4/255. The comparison excludes silhouettes and high-contrast texture boundaries to account for Cycles antialiasing versus point sampling. Lighting is intentionally absent so geometry/UV errors remain visible.
 - `evidence/rejection-tests.json`: malformed warped quad, skewed UV island and blended vertex weights each cause an export error.
+- `test_edit_export.py` and `evidence/edit-mode-export.log`: exporting directly from Edit Mode includes live vertex and UV edits, rejects newly warped faces without overwriting the previous file, and restores Edit Mode on success or failure.
 - `evidence/roundtrip-edit-check.json`: imported object translation changes exported geometry; a nonrectangular imported mesh is rejected.
 
 The independent renderer intentionally implements only the fixture's single north-face, zero-depth, no-inflate cubes. It is not advertised as a general Galath renderer. The Galath numeric comparison and GeckoLib bake cover the broader legacy geometry.
