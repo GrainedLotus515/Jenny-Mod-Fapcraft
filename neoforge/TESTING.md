@@ -80,6 +80,10 @@ These are the open items from PORT_NOTES, plus code paths no one has run.
 - [ ] 1.11 Watch a kobold for a few minutes, and a Galath and a Manglelie through a scene. → Kobold eyes stay put; Galath's hair and Manglelie's skirt don't creep further each frame. (Fixed: offsets used to accumulate.)
 - [ ] 1.12 Play several scenes, especially Goblin (most affected), Jenny, Slime, Ellie, Galath, Luna payment. → No limbs snapping to wild angles for a frame or two. (Fixed: constant-expression rotations were applied in radians.)
 - [ ] 1.13 In a girl menu, press Tab a few times, then Enter. → The highlight moves between buttons and Enter presses the highlighted one.
+- [ ] 1.14 Any first-person scene (Ellie "Face fuck" shows it best; also Jenny, Bia, Luna, Kobold, Galath). → The camera stays attached to the scene view and moves smoothly with it. No snapping back and forth every tick, and the girl's motion looks fluid. (Fixed: the camera interpolated from the wrong position field.)
+- [ ] 1.15 As a girl form (potion), start a solo bed action in first person (14.6-14.9). → Same: steady camera. (Same fix, not tested in game.)
+- [ ] 1.16 Pick up a goblin in first person and watch her face during the pick-up animation. → Both eyes and her mouth are visible the whole time. (Fixed: depth writes were off in this render pass.)
+- [ ] 1.17 Other first-person passes drawn the same way: goblin on the shoulder (look right/down), goblin throw (12.3), Galath's energy-ball dragons (9.1), your own body as a girl form in first person. → No parts showing through other parts. (Same fix, only the goblin pick-up was checked.)
 
 ---
 
@@ -222,7 +226,9 @@ Wild Galath only targets survival players. Use `/gamemode survival` and stay abo
 - [ ] 9.7 Right-click her while she is knocked out on the ground. → CORRUPT scene. At the end she gives you a **Galath coin** in your hand and you are her master.
 - [ ] 9.8 `/kill @e[type=sexmod:galath]`, then `/give @s sexmod:galath_coin`, right-click with it. → 4 s summon with particles, then an owned Galath appears 2 blocks ahead. (10% chance she does a different intro and starts a scene on you about 8 s later.)
 - [ ] 9.9 Right-click the coin again while she exists. → Blocked (sound only).
-- [ ] 9.10 Use the coin on your own Galath (to dismiss her). → Note what happens. (known bug? the code suggests she respawns instead of leaving)
+- [ ] 9.10 Aim at your own Galath's body and right-click her with the coin. → Sound; about 1 s later she spreads her wings and shrinks away in a burst of purple particles, a particle stream flows into the coin and the coin darkens; after 4 s she is gone and no new Galath appears. (Fixed: she used to reappear next to you.)
+- [ ] 9.10a Right after 9.10, right-click the coin in the air. → She is summoned again as in 9.8.
+- [ ] 9.10b Click her with the coin several times during the de-summon. → It still finishes after 4 s.
 - [ ] 9.11 Owned Galath, on the ground, right-click her with an empty hand. → Menu: "cowgirl", "anal", "ride" (+ "threesome" if you have a Manglelie).
 - [ ] 9.12 cowgirl. → Scene after about 1 s. Finish works. Note that Sneak does nothing in Galath scenes (by design in the code).
 - [ ] 9.13 anal. → CORRUPT scene to the end.
@@ -266,7 +272,7 @@ The lamp has 3 wishes per item. The tooltip shows "2 wishes left", "1 wish left"
 
 ## 12. Goblin
 
-- [ ] 12.1 Right-click a spawned goblin. → She is picked up and sits on your shoulder.
+- [ ] 12.1 Right-click a spawned goblin. → She is picked up and sits on your shoulder. During the pick-up both of her eyes show (see 1.16).
 - [ ] 12.2 Right-click a second goblin while carrying one. → "you are already carrying a Goblin".
 - [ ] 12.3 Hold **G** with the goblin on your shoulder. → Pad appears. Move the mouse to the left half, release G. → She is thrown where you aim, lands and stands up.
 - [ ] 12.4 Thrown goblin: right-click her again. → Picked up again.

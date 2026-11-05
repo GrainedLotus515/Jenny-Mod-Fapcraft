@@ -9,6 +9,7 @@ import com.trolmastercard.sexmod.entity.BaseGirlEntity
 import com.trolmastercard.sexmod.entity.GalathEntity
 import com.trolmastercard.sexmod.networking.InformOfOwnershipPacket
 import com.trolmastercard.sexmod.networking.PacketHandler
+import com.trolmastercard.sexmod.networking.SpawnEnergyBallParticlesPacket
 import com.trolmastercard.sexmod.registry.ModItems
 import com.trolmastercard.sexmod.util.GirlSavedData
 import com.trolmastercard.sexmod.util.RotationHelper
@@ -53,7 +54,8 @@ import software.bernie.geckolib.util.GeckoLibUtil
  * the player's entity data); on the client, energy particles stream from the
  * coin to the summon point; after the window the server spawns the
  * [GalathEntity] ([writeCooldownNBT] SERVER branch) and grants
- * ownership. Right-clicking the owned Galath starts the de-summon animation;
+ * ownership. Right-clicking the owned Galath with the coin sends her back into it
+ * ([tickDeSummon]): de-summon animation, particle stream into the coin, then removal;
  * the summon/de-summon particle visuals run client-side while the timestamps
  * advance on both sides.
  *
@@ -104,7 +106,7 @@ class GalathCoinItem : Item(Properties().stacksTo(1)), GeoItem {
             val deactivationTime = entityData.getLong(DEACTIVATION_TIME_KEY)
             val now = System.currentTimeMillis()
             this.writeCooldownNBT(player, entityData, now, activationTime)
-            this.writeCooldownNBT(player, entityData, now, deactivationTime)
+            this.tickDeSummon(player, entityData, now, deactivationTime)
             if (deactivationTime != 0L && now > deactivationTime + 4000L) {
                 entityData.putLong(DEACTIVATION_TIME_KEY, 0L)
                 entityData.putBoolean(DE_SUMMON_ANIMATION_KEY, false)
@@ -114,6 +116,37 @@ class GalathCoinItem : Item(Properties().stacksTo(1)), GeoItem {
                 this.isSummonWindow(player, now, activationTime)
                 this.isCooldownElapsed(player, now, deactivationTime)
             }
+        }
+    }
+
+    /**
+     * SERVER: the coin was used on the owned Galath at `startTime`. Once the coin has wound up
+     * (the client starts its particle stream from her to the coin at the same moment) she plays
+     * the de-summon animation in place, and when the window closes she is removed together with
+     * her Manglelie and the ownership, so the coin can summon her again.
+     *
+     * The 1.12 source calls the summon branch ([writeCooldownNBT]) for the de-summon timer as
+     * well, which spawns a second Galath in front of the player. Its own description text, the
+     * `desummon` animation and the particle stream running from her *target position* show
+     * that the de-summon half was lost; this restores it from the death path
+     * (`GalathEntity.onLivingDeath`).
+     */
+    fun tickDeSummon(player: Player, entityData: CompoundTag, now: Long, startTime: Long) {
+        if (startTime == 0L || player.level().isClientSide) {
+            return
+        }
+
+        val galath = BaseGirlEntity.getServerGirlEntity(GirlSavedData.getOwnerOf(player)) as? GalathEntity
+        if (now > startTime + ANIMATION_START_DELAY && !entityData.getBoolean(DE_SUMMON_ANIMATION_KEY)) {
+            entityData.putBoolean(DE_SUMMON_ANIMATION_KEY, true)
+            if (galath != null && galath.getCurrentAction() != Action.GALATH_DE_SUMMON) {
+                deSummonGalath(galath)
+                PacketHandler.networkWrapper.sendToAllTracking(SpawnEnergyBallParticlesPacket(galath.getGirlId(), player.uuid), galath)
+            }
+        }
+
+        if (now > startTime + SUMMON_DURATION && galath != null) {
+            GirlSavedData.updateMangleliePartner(galath)
         }
     }
 
@@ -254,10 +287,16 @@ class GalathCoinItem : Item(Properties().stacksTo(1)), GeoItem {
                 val target = event.target
                 if (target is GalathEntity) {
                     if (player.uuid == target.getMasterUUID()) {
-                        player.level().playLocalSound(
-                            player.x, player.y, player.z, SoundHandler.MISC_WEOWEO[0], SoundSource.PLAYERS, 1.0f, 1.0f, false,
-                        )
-                        player.persistentData.putLong(DEACTIVATION_TIME_KEY, System.currentTimeMillis())
+                        val entityData = player.persistentData
+                        // a de-summon that is already running keeps its timer (1.12 restarted it on every click)
+                        if (entityData.getLong(DEACTIVATION_TIME_KEY) == 0L) {
+                            player.level().playLocalSound(
+                                player.x, player.y, player.z, SoundHandler.MISC_WEOWEO[0], SoundSource.PLAYERS, 1.0f, 1.0f, false,
+                            )
+                            entityData.putBoolean(DE_SUMMON_ANIMATION_KEY, false)
+                            entityData.putLong(DEACTIVATION_TIME_KEY, System.currentTimeMillis())
+                        }
+
                         event.isCanceled = true
                     }
                 }
