@@ -1,0 +1,8 @@
+{
+  "build": "PASS",
+  "jar": "fapcraft-1.21.1-2.0.0-alpha.jar",
+  "resource": "assets/sexmod/geo/galath/galath.geo.json",
+  "exported_sha256": "7933592c8bf752d021ebaee699bf8cd8ba3fb21c53f2834c1dd5925c460ffaf6",
+  "packaged_sha256": "7933592c8bf752d021ebaee699bf8cd8ba3fb21c53f2834c1dd5925c460ffaf6",
+  "original_restored": true
+}

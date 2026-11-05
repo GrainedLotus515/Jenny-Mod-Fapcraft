@@ -1,0 +1,25 @@
+warning: Git tree '/home/lotus/.t3/worktrees/Jenny-Mod-Fapcraft/t3-a66e82d9' is dirty
+{
+  "bones": 253,
+  "cubes": 2759,
+  "max_errors": {
+    "origin_pixels": 1.8603515599124876e-06,
+    "size_pixels": 2.2888183597302714e-06,
+    "pivot_pixels": 1.5258789076710855e-06,
+    "rotation_degrees": 6.812060860283964e-06,
+    "uv_pixels": 4.999999999999796e-06,
+    "cube_corner_pixels": 4.262361182227892e-06,
+    "bone_pivot_pixels": 1.5258789076710855e-06,
+    "bone_rotation_degrees": 6.507797110089086e-06,
+    "world_corner_pixels": 3.798485906258975e-06
+  },
+  "tolerance": 0.0001,
+  "pass": true
+}
+{
+  "triangles": 256,
+  "silhouette_iou": 0.99940919295758,
+  "interior_pixels": 68579,
+  "interior_mean_rgb_error_255": 0.5096992762604685,
+  "interior_p99_rgb_error_255": 4.0
+}

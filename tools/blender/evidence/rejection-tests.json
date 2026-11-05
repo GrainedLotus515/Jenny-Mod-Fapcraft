@@ -1,0 +1,5 @@
+{
+  "warped_quad": "New curved rectangular-quad shell face 0: warped/trapezoidal quad cannot be a Bedrock plane",
+  "skewed_uv": "New curved rectangular-quad shell: UV face must be an axis-aligned rectangle (rotate its UVs 90 degrees if needed)",
+  "blended_weights": "New curved rectangular-quad shell: every vertex needs exactly one bone at weight 1"
+}

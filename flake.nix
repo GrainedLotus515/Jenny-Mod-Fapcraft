@@ -33,7 +33,9 @@
         in
         {
           default = pkgs.mkShell {
-            packages = [ jdk pkgs.maven pkgs.git ];
+            packages = [ jdk pkgs.maven pkgs.git pkgs.blender pkgs.nodejs
+              (pkgs.python3.withPackages (ps: [ ps.numpy ps.pillow ps.jsonschema ]))
+            ];
             JAVA_HOME = jdk.home;
             LD_LIBRARY_PATH = pkgs.lib.makeLibraryPath runtimeLibs;
           };

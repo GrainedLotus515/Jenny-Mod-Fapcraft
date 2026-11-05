@@ -1,0 +1,13 @@
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :compileKotlin UP-TO-DATE
+> Task :compileJava NO-SOURCE
+> Task :generateModMetadata UP-TO-DATE
+> Task :processResources
+> Task :classes
+> Task :blenderProbeClasspath
+
+BUILD SUCCESSFUL in 666ms
+5 actionable tasks: 2 executed, 3 up-to-date
+PASS tools/blender/evidence/galath-roundtrip.geo.json: version=V_1_12_0 bones=253 cubes=2759 visible_quads=4992
+PASS tools/blender/evidence/curved_shell.geo.json: version=V_1_12_0 bones=2 cubes=128 visible_quads=128

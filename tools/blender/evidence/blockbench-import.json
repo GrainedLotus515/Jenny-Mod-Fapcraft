@@ -1,0 +1,18 @@
+[
+  {
+    "path": "tools/blender/evidence/galath-roundtrip.geo.json",
+    "bones": 253,
+    "cubes": 2759,
+    "visible_faces": 4992,
+    "result": "PASS",
+    "scope": "Blockbench v4.12.6 actual parseCube function; editor Cube data stub, no GUI"
+  },
+  {
+    "path": "tools/blender/evidence/curved_shell.geo.json",
+    "bones": 2,
+    "cubes": 128,
+    "visible_faces": 128,
+    "result": "PASS",
+    "scope": "Blockbench v4.12.6 actual parseCube function; editor Cube data stub, no GUI"
+  }
+]
