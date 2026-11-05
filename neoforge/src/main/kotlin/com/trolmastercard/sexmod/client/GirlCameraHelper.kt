@@ -53,6 +53,10 @@ open class GirlCameraHelper {
     @JvmField
     var playerLastPos: Vec3? = null
 
+    /** The player's `xo/yo/zo` captured with [playerPos]; the 1.21 camera interpolates from these. */
+    @JvmField
+    var playerPrevPos: Vec3? = null
+
     @JvmField
     var currentGirl: AbstractPlayerGirlEntity? = null
 
@@ -85,8 +89,16 @@ open class GirlCameraHelper {
             player.xOld = last.x
             player.yOld = last.y
             player.zOld = last.z
+            val prev = this.playerPrevPos
+            if (prev != null) {
+                player.xo = prev.x
+                player.yo = prev.y
+                player.zo = prev.z
+            }
+
             this.playerPos = null
             this.playerLastPos = null
+            this.playerPrevPos = null
         }
     }
 
@@ -103,6 +115,7 @@ open class GirlCameraHelper {
                 val realLast = Vec3(player.xOld, player.yOld, player.zOld)
                 this.playerPos = realPos
                 this.playerLastPos = realLast
+                this.playerPrevPos = Vec3(player.xo, player.yo, player.zo)
                 var camPos = playerGirl.getCachedBoneOffset("girlCam")
                 camPos = playerGirl.getOwnerAimVector(camPos, renderTickTime)
                 camPos = camPos.add(RotationHelper.lerpVec3dDouble(realLast, realPos, renderTickTime.toDouble()))
@@ -110,6 +123,10 @@ open class GirlCameraHelper {
                 player.xOld = camPos.x
                 player.yOld = camPos.y - player.eyeHeight
                 player.zOld = camPos.z
+                // 1.12 rendered the view from lastTickPos; the 1.21 camera lerps xo -> x instead
+                player.xo = camPos.x
+                player.yo = camPos.y - player.eyeHeight
+                player.zo = camPos.z
                 val action = playerGirl.getCurrentAction()
                 var yaw = playerGirl.getYawRotation()
                 if (!playerGirl.canPerformAction(action, player)) {

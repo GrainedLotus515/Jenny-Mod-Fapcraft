@@ -26,7 +26,9 @@ import java.util.ConcurrentModificationException
  * player is moved to the bone offset. On the matching frame end the captured
  * position is written back, restoring the player to where he
  * was before the camera snap — so world physics/packets keep seeing a stable
- * position.
+ * position. The 1.21 camera interpolates `xo/yo/zo` (1.12 used `lastTickPos`),
+ * so those are pinned and restored as well; otherwise the view slides from the
+ * real position to the bone within every tick.
  *
  * **Pitfalls.** When the girl is anchored, the bone offset is taken from
  * `getCachedBoneOffset("boyCam")` relative to her target position;
@@ -44,6 +46,10 @@ open class PositionData {
 
     @JvmField
     var rotation: Vec3? = null
+
+    /** The player's `xo/yo/zo` captured with [position]; the 1.21 camera interpolates from these. */
+    @JvmField
+    var previousPosition: Vec3? = null
 
     /**
      * Cancels the vanilla player-body render when the rendered player is the
@@ -112,8 +118,16 @@ open class PositionData {
             player.xOld = rot.x
             player.yOld = rot.y
             player.zOld = rot.z
+            val prev = this.previousPosition
+            if (prev != null) {
+                player.xo = prev.x
+                player.yo = prev.y
+                player.zo = prev.z
+            }
+
             this.position = null
             this.rotation = null
+            this.previousPosition = null
         }
     }
 
@@ -135,6 +149,7 @@ open class PositionData {
                     val renderTickTime = event.partialTick.getGameTimeDeltaPartialTick(true)
                     this.position = player.position()
                     this.rotation = Vec3(player.xOld, player.yOld, player.zOld)
+                    this.previousPosition = Vec3(player.xo, player.yo, player.zo)
                     val bonePos = if (girl.isAnchored())
                         girl.getCachedBoneOffset("boyCam").add(girl.getTargetPosition())
                     else
@@ -144,6 +159,10 @@ open class PositionData {
                     player.xOld = bonePos.x
                     player.yOld = bonePos.y - player.eyeHeight
                     player.zOld = bonePos.z
+                    // 1.12 rendered the view from lastTickPos; the 1.21 camera lerps xo -> x instead
+                    player.xo = bonePos.x
+                    player.yo = bonePos.y - player.eyeHeight
+                    player.zo = bonePos.z
                 }
             }
         }
