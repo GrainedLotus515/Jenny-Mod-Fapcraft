@@ -1,0 +1,11 @@
+{
+  "scope": "client startup with roundtrip Galath and fresh geometry in resources; no entity screenshot",
+  "process_exit_before_capture": null,
+  "galath_sha256": "7933592c8bf752d021ebaee699bf8cd8ba3fb21c53f2834c1dd5925c460ffaf6",
+  "fresh_sha256": "a46d474299a43765d811845961e5e46449ec725ea0a796ed1b87435aff816f6d",
+  "classpath_resource_bytes_match": true,
+  "mod_resource_reload_logged": true,
+  "screenshot_exit": 0,
+  "screenshot_error": "",
+  "original_resources_restored": true
+}

@@ -1,0 +1,30 @@
+Reusing configuration cache.
+> Task :checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :processTestResources NO-SOURCE
+> Task :generateModMetadata UP-TO-DATE
+> Task :jarJar UP-TO-DATE
+> Task :createMinecraftArtifacts UP-TO-DATE
+> Task :compileKotlin UP-TO-DATE
+> Task :compileJava NO-SOURCE
+> Task :processResources
+> Task :classes
+> Task :jar UP-TO-DATE
+> Task :assemble UP-TO-DATE
+> Task :compileTestKotlin NO-SOURCE
+> Task :compileTestJava NO-SOURCE
+> Task :testClasses UP-TO-DATE
+> Task :test NO-SOURCE
+> Task :check UP-TO-DATE
+> Task :build UP-TO-DATE
+
+BUILD SUCCESSFUL in 478ms
+6 actionable tasks: 1 executed, 5 up-to-date
+Configuration cache entry reused.
+{
+  "build": "PASS",
+  "jar": "fapcraft-1.21.1-2.0.0-alpha.jar",
+  "resource": "assets/sexmod/geo/galath/galath.geo.json",
+  "exported_sha256": "7933592c8bf752d021ebaee699bf8cd8ba3fb21c53f2834c1dd5925c460ffaf6",
+  "packaged_sha256": "7933592c8bf752d021ebaee699bf8cd8ba3fb21c53f2834c1dd5925c460ffaf6",
+  "original_restored": true
+}

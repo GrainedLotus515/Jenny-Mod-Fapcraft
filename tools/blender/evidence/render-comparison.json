@@ -1,0 +1,7 @@
+{
+  "triangles": 256,
+  "silhouette_iou": 0.99940919295758,
+  "interior_pixels": 68579,
+  "interior_mean_rgb_error_255": 0.5096992762604685,
+  "interior_p99_rgb_error_255": 4.0
+}
